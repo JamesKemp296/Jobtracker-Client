@@ -6,6 +6,7 @@ import Logo from '../images/logo.png'
 import UserContext from '../contexts/UserContext'
 
 // MUI stuff
+import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
@@ -50,6 +51,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const INITIAL_STATE = {
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -73,6 +76,8 @@ const SignUp = ({ history }) => {
   const { dispatch } = useContext(UserContext)
 
   const isInvalid =
+    !formData.firstName ||
+    !formData.lastName ||
     !formData.email ||
     !formData.password ||
     !formData.cohort ||
@@ -81,7 +86,6 @@ const SignUp = ({ history }) => {
 
   const handleInputChange = field => e => {
     setFormData({ ...formData, [field]: e.target.value })
-    console.log(formData)
   }
 
   const handleSubmit = e => {
@@ -105,14 +109,40 @@ const SignUp = ({ history }) => {
   }
 
   return (
-    <Grid container className={classes.form}>
-      <Grid item sm />
-      <Grid item sm>
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
         <img src={Logo} alt="wyncode logo" className={classes.logo} />
-        <Typography variant="h2" className={classes.pageTitle}>
+        <Typography variant="h3" className={classes.pageTitle}>
           Sign Up
         </Typography>
-        <form noValidate onSubmit={handleSubmit}>
+        <form noValidate onSubmit={handleSubmit} className={classes.form}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+                value={formData.firstName}
+                onChange={handleInputChange('firstName')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lname"
+                value={formData.lastName}
+                onChange={handleInputChange('lastName')}
+              />
+            </Grid>
+          </Grid>
           <TextField
             variant="outlined"
             margin="normal"
@@ -122,7 +152,6 @@ const SignUp = ({ history }) => {
             label="Email"
             name="email"
             autoComplete="email"
-            autoFocus={true}
             helperText={errors.email}
             error={errors.email ? true : false}
             value={formData.email}
@@ -195,12 +224,11 @@ const SignUp = ({ history }) => {
           </Button>
           <Link to="/login">Already have an account? Login</Link>
         </form>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Grid>
-      <Grid item sm />
-    </Grid>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
   )
 }
 
