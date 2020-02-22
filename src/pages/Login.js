@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
-import PropTypes from 'prop-types'
 import Logo from '../images/logo.png'
 
 // MUI stuff
@@ -90,9 +89,8 @@ const Login = ({ history }) => {
         <Typography variant="h2" className={classes.pageTitle}>
           Login
         </Typography>
-        <form noValidate onSubmit={handleSubmit} className={classes.form}>
+        <form noValidate onSubmit={handleSubmit}>
           <TextField
-            className={classes.textField}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -101,13 +99,13 @@ const Login = ({ history }) => {
             label="Email"
             name="email"
             autoComplete="email"
+            autoFocus={true}
             helperText={errors.email}
             error={errors.email ? true : false}
             value={formData.email}
             onChange={handleInputChange('email')}
           />
           <TextField
-            className={classes.textField}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -151,9 +149,5 @@ const Login = ({ history }) => {
     </Grid>
   )
 }
-
-// Login.propTypes = {
-//   classes: PropTypes.object.isRequired
-// }
 
 export default Login
