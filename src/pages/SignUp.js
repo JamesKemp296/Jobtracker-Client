@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import Logo from '../images/logo.png'
+import UserContext from '../contexts/UserContext'
 
 // MUI stuff
 import Grid from '@material-ui/core/Grid'
@@ -69,11 +70,13 @@ const SignUp = ({ history }) => {
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
+  const { dispatch } = useContext(UserContext)
+
   const isInvalid =
     !formData.email ||
     !formData.password ||
     !formData.cohort ||
-    !formData.class ||
+    !formData.program ||
     isloading
 
   const handleInputChange = field => e => {
@@ -85,9 +88,12 @@ const SignUp = ({ history }) => {
     e.preventDefault()
     setIsLoading(true)
     axios
-      .post('/login', formData)
+      .post('/signup', formData)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data.token)
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
+
+        dispatch({ type: 'LOGIN' })
         setIsLoading(false)
         history.push('/')
       })
@@ -160,8 +166,8 @@ const SignUp = ({ history }) => {
             label="Confirm Password"
             name="confirmPassword"
             autoComplete="confirmPassword"
-            helperText={errors.password}
-            error={errors.password ? true : false}
+            helperText={errors.confirmPassword}
+            error={errors.confirmPassword ? true : false}
             value={formData.confirmPassword}
             onChange={handleInputChange('confirmPassword')}
           />

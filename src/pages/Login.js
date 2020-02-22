@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
+import UserContext from '../contexts/UserContext'
 import Logo from '../images/logo.png'
 
 // MUI stuff
@@ -59,6 +60,8 @@ const Login = ({ history }) => {
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
+  const { dispatch } = useContext(UserContext)
+
   const isInvalid = !formData.email || !formData.password || isloading
 
   const handleInputChange = field => e =>
@@ -70,7 +73,9 @@ const Login = ({ history }) => {
     axios
       .post('/login', formData)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data.token)
+        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
+        dispatch({ type: 'LOGIN' })
         setIsLoading(false)
         history.push('/')
       })
