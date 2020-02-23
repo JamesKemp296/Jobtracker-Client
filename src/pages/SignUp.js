@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
-import Logo from '../images/logo.png'
+
 import UserContext from '../contexts/UserContext'
 
 // MUI stuff
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   logo: {
-    width: 100,
+    width: 80,
     margin: '20px auto 20px auto'
   },
   paper: {
@@ -111,7 +111,11 @@ const SignUp = ({ history }) => {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <img src={Logo} alt="wyncode logo" className={classes.logo} />
+        <img
+          src="https://leo.nyc3.digitaloceanspaces.com/jobtracker/favicon.ico"
+          alt="wyncode logo"
+          className={classes.logo}
+        />
         <Typography variant="h3" className={classes.pageTitle}>
           Sign Up
         </Typography>

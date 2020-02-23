@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+import { theme } from '../theme'
+import { makeStyles } from '@material-ui/core/styles'
 import { Link, useHistory } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 
@@ -12,6 +14,14 @@ const Navbar = ({ isAuth }) => (
 )
 
 const NavbarAuth = () => {
+  const colors = theme.colors
+  const useStyles = makeStyles(theme => ({
+    root: {
+      backgroundColor: colors.primary
+    }
+  }))
+  const classes = useStyles()
+
   let history = useHistory()
   const { dispatch } = useContext(UserContext)
 
@@ -21,31 +31,40 @@ const NavbarAuth = () => {
     history.push('/')
   }
   return (
-    <AppBar style={{ backgroundColor: 'white' }}>
+    <AppBar className={classes.root}>
       <Toolbar className="nav-container">
-        <Button component={Link} to="/">
+        <Button color="inherit" component={Link} to="/">
           Home
         </Button>
-        <Button component={Link} to="/admin">
+        <Button color="inherit" component={Link} to="">
           Admin
         </Button>
-        <Button onClick={logout}>Logout</Button>
+        <Button color="inherit" onClick={logout}>
+          Logout
+        </Button>
       </Toolbar>
     </AppBar>
   )
 }
 
 const NavbarUnAuth = () => {
+  const colors = theme.colors
+  const useStyles = makeStyles(theme => ({
+    root: {
+      backgroundColor: colors.primary
+    }
+  }))
+  const classes = useStyles()
   return (
-    <AppBar style={{ backgroundColor: 'white' }}>
+    <AppBar className={classes.root}>
       <Toolbar className="nav-container">
-        <Button component={Link} to="/login">
+        <Button color="inherit" component={Link} to="/login">
           Login
         </Button>
-        <Button component={Link} to="/">
+        <Button color="inherit" component={Link} to="/">
           Home
         </Button>
-        <Button component={Link} to="/signup">
+        <Button color="inherit" component={Link} to="/signup">
           SignUp
         </Button>
       </Toolbar>
