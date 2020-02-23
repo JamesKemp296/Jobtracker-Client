@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import UserContext from '../contexts/UserContext'
 
 // MUI stuff
-import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -86,18 +86,17 @@ const Login = ({ history }) => {
   }
 
   return (
-    <Grid container className={classes.form}>
-      <Grid item sm />
-      <Grid item sm>
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
         <img
           src="https://leo.nyc3.digitaloceanspaces.com/jobtracker/favicon.ico"
           alt="wyncode logo"
           className={classes.logo}
         />
-        <Typography variant="h2" className={classes.pageTitle}>
+        <Typography variant="h3" className={classes.pageTitle}>
           Login
         </Typography>
-        <form noValidate onSubmit={handleSubmit}>
+        <form noValidate onSubmit={handleSubmit} className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -149,12 +148,11 @@ const Login = ({ history }) => {
             Don't have an account? Sign Up
           </Link>
         </form>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Grid>
-      <Grid item sm />
-    </Grid>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
   )
 }
 
