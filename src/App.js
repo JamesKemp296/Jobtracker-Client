@@ -16,7 +16,7 @@ import NavBar from './components/NavBar'
 // Pages
 import Home from './pages/Home'
 import Login from './pages/Login'
-import Admin from './pages/Admin'
+import Profile from './pages/Profile'
 import SignUp from './pages/SignUp'
 
 const theme = createMuiTheme(themeFile)
@@ -44,6 +44,8 @@ const App = () => {
         } else {
           dispatch({ type: 'LOGIN' })
         }
+      } else {
+        dispatch({ type: 'LOGOUT' })
       }
     },
     [initialState.isAuth]
@@ -57,17 +59,17 @@ const App = () => {
             <div className="container">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <AuthRoute
-                  path="/login"
-                  component={Login}
-                  isAuth={state.isAuth}
-                />
+                <Route path="/login" component={Login} isAuth={state.isAuth} />
                 <Route
                   path="/signup"
                   component={SignUp}
                   isAuth={state.isAuth}
                 />
-                <AuthRoute path="/admin" component={Admin} />
+                <AuthRoute
+                  path="/profile"
+                  component={Profile}
+                  isAuth={state.isAuth}
+                />
               </Switch>
             </div>
           </Router>

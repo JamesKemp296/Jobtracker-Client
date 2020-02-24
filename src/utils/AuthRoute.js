@@ -5,7 +5,7 @@ const AuthRoute = ({ component: Component, isAuth, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        isAuth ? <Redirect to="/" /> : <Component {...props} />
+        !isAuth ? <Redirect to="/" /> : <Component {...props} />
       }
     />
   )

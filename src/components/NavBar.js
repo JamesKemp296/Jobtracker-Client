@@ -36,8 +36,8 @@ const NavbarAuth = () => {
         <Button color="inherit" component={Link} to="/">
           Home
         </Button>
-        <Button color="inherit" component={Link} to="">
-          Admin
+        <Button color="inherit" component={Link} to="/profile">
+          Profile
         </Button>
         <Button color="inherit" onClick={logout}>
           Logout

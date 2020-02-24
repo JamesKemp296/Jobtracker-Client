@@ -207,6 +207,7 @@ const SignUp = ({ history }) => {
           <Program
             handleInputChange={handleInputChange}
             class={formData.program}
+            programValue={formData.program}
           />
           {errors.general && (
             <Typography variant="body2" className={classes.customError}>
