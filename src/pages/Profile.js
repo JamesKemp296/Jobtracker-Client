@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Copyright from '../components/Copyright'
+import Program from '../components/Program'
 
 // Material UI Stuff
 import { makeStyles } from '@material-ui/core/styles'
@@ -68,19 +69,18 @@ const Profile = () => {
     setIsLoading(true)
     const fireToken = await localStorage.FBIdToken
     await axios
-      .post(
-        (`/user`,
-        {
-          headers: {
-            Authorization: `${fireToken}`
-          }
-        })
-      )
+      .post(`/user`, formData, {
+        headers: {
+          Authorization: `${fireToken}`
+        }
+      })
+
       .then(res => {
         console.log(res.data)
         setIsLoading(false)
       })
       .catch(err => {
+        setErrors(err.response.data)
         console.log(err)
         setIsLoading(false)
       })
@@ -183,19 +183,10 @@ const Profile = () => {
                   value={formData.github}
                   onChange={handleInputChange('github')}
                 />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  id="program"
-                  type="program"
-                  label="Program"
-                  name="program"
-                  helperText={errors.program}
-                  error={errors.program ? true : false}
-                  autoComplete="program"
-                  value={formData.program}
-                  onChange={handleInputChange('program')}
+                <Program
+                  handleInputChange={handleInputChange}
+                  program={formData.program}
+                  class={formData.program}
                 />
 
                 {errors.general && (

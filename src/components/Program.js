@@ -10,7 +10,7 @@ const Program = ({ handleInputChange, program }) => {
     <FormControl component="fieldset">
       <FormLabel component="legend">Program</FormLabel>
       <RadioGroup
-        defaultValue={program}
+        defaultValue=""
         aria-label="program"
         name="customized-radios"
         value={program}
