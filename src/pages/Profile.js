@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const INITIAL_STATE = {
   cohort: '',
@@ -31,6 +34,7 @@ const Profile = () => {
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [user, setUser] = useState(null)
+  const [message, setMessage] = useState({})
 
   const isInvalid = !formData.cohort || !formData.program || isloading
 
@@ -76,7 +80,8 @@ const Profile = () => {
       })
 
       .then(res => {
-        console.log(res.data)
+        setMessage(res.data)
+        fetchProfile()
         setIsLoading(false)
       })
       .catch(err => {
@@ -84,6 +89,33 @@ const Profile = () => {
         console.log(err)
         setIsLoading(false)
       })
+  }
+
+  const handleImageChange = async event => {
+    const image = event.target.files[0]
+    const picData = new FormData()
+    setIsLoading(true)
+    const picToken = await localStorage.FBIdToken
+    picData.append('image', image, image.name)
+    await axios
+      .post('user/image', picData, {
+        headers: {
+          Authorization: `${picToken}`
+        }
+      })
+      .then(res => {
+        setMessage(res.data)
+        fetchProfile()
+        setIsLoading(false)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput')
+    fileInput.click()
   }
 
   const useStyles = makeStyles(theme => ({
@@ -94,12 +126,15 @@ const Profile = () => {
       position: 'relative'
     },
     logo: {
-      width: 180,
-      height: 180,
-      display: 'block',
+      width: 140,
+      margin: '20px auto 20px auto'
+    },
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center'
     },
-
     submit: {
       margin: theme.spacing(3, 0, 2),
       position: 'relative'
@@ -108,7 +143,7 @@ const Profile = () => {
       position: 'absolute'
     },
     customError: {
-      color: 'red',
+      color: 'green',
       fontSize: '0.8rem',
       width: '100%',
       position: 'absolute'
@@ -128,8 +163,22 @@ const Profile = () => {
                 alt="wyncode logo"
                 className={classes.logo}
               />
-              <Typography variant="h3" className={classes.pageTitle}>
-                Sign Up
+              {isloading && (
+                <CircularProgress size={30} className={classes.progress} />
+              )}
+              <Tooltip title="Edit Profile Picture" placement="top">
+                <IconButton onClick={handleEditPicture} className="button">
+                  <EditIcon color="primary" />
+                </IconButton>
+              </Tooltip>
+              <input
+                type="file"
+                id="imageInput"
+                onChange={handleImageChange}
+                hidden="hidden"
+              />
+              <Typography variant="h5" className={classes.pageTitle}>
+                Welcome, {user.user.firstName}
               </Typography>
               <form noValidate onSubmit={handleSubmit} className={classes.form}>
                 <TextField
@@ -189,11 +238,10 @@ const Profile = () => {
                   class={formData.program}
                 />
 
-                {errors.general && (
-                  <Typography variant="body2" className={classes.customError}>
-                    {errors.general}
-                  </Typography>
-                )}
+                <Typography variant="body2" className={classes.customError}>
+                  {message.message}
+                </Typography>
+
                 <Button
                   type="submit"
                   fullWidth
@@ -209,7 +257,8 @@ const Profile = () => {
                 </Button>
               </form>
             </div>
-            <Box mt={8}>
+
+            <Box mt={2}>
               <Copyright />
             </Box>
           </Container>
