@@ -83,9 +83,17 @@ const Profile = () => {
         setMessage(res.data)
         fetchProfile()
         setIsLoading(false)
+        const timer = setTimeout(() => {
+          setMessage('')
+          clearTimeout(timer)
+        }, 2500)
       })
       .catch(err => {
         setErrors(err.response.data)
+        const timer = setTimeout(() => {
+          setErrors('')
+          clearTimeout(timer)
+        }, 2500)
         console.log(err)
         setIsLoading(false)
       })
@@ -107,6 +115,10 @@ const Profile = () => {
         setMessage(res.data)
         fetchProfile()
         setIsLoading(false)
+        const timer = setTimeout(() => {
+          setMessage('')
+          clearTimeout(timer)
+        }, 2500)
       })
       .catch(err => {
         console.log(err)
@@ -142,6 +154,16 @@ const Profile = () => {
     progress: {
       position: 'absolute'
     },
+    progressTwo: {
+      position: 'absolute',
+      marginTop: '20px'
+    },
+    progressThree: {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '40%'
+    },
     customError: {
       color: 'green',
       fontSize: '0.8rem',
@@ -164,10 +186,13 @@ const Profile = () => {
                 className={classes.logo}
               />
               {isloading && (
-                <CircularProgress size={30} className={classes.progress} />
+                <CircularProgress size={30} className={classes.progressTwo} />
               )}
               <Tooltip title="Edit Profile Picture" placement="top">
-                <IconButton onClick={handleEditPicture} className="button">
+                <IconButton
+                  onClick={handleEditPicture}
+                  className={classes.button}
+                >
                   <EditIcon color="primary" />
                 </IconButton>
               </Tooltip>
@@ -193,21 +218,7 @@ const Profile = () => {
                   value={formData.website}
                   onChange={handleInputChange('website')}
                 />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  id="cohort"
-                  type="number"
-                  inputProps={inputProps}
-                  label="Cohort #"
-                  name="cohort"
-                  autoComplete="cohort"
-                  helperText={errors.cohort}
-                  error={errors.cohort ? true : false}
-                  value={formData.cohort}
-                  onChange={handleInputChange('cohort')}
-                />
+
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -231,6 +242,21 @@ const Profile = () => {
                   autoComplete="github"
                   value={formData.github}
                   onChange={handleInputChange('github')}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="cohort"
+                  type="number"
+                  inputProps={inputProps}
+                  label="Cohort #"
+                  name="cohort"
+                  autoComplete="cohort"
+                  helperText={errors.cohort}
+                  error={errors.cohort ? true : false}
+                  value={formData.cohort}
+                  onChange={handleInputChange('cohort')}
                 />
                 <Program
                   handleInputChange={handleInputChange}
@@ -264,7 +290,7 @@ const Profile = () => {
           </Container>
         </div>
       ) : (
-        <CircularProgress size={60} className={classes.progressOne} />
+        <CircularProgress size={60} className={classes.progressThree} />
       )}
     </>
   )
