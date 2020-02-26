@@ -138,7 +138,9 @@ const Profile = () => {
       position: 'relative'
     },
     logo: {
-      width: 140,
+      width: 180,
+      height: 180,
+      objectFit: 'cover',
       margin: '20px auto 20px auto'
     },
     paper: {
