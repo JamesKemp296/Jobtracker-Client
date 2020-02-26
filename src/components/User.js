@@ -26,23 +26,30 @@ const useStyles = makeStyles({
   }
 })
 
-const User = ({ email, imageUrl, id }) => {
+const User = ({ email, imageUrl, id, first, last, cohort, program }) => {
   const classes = useStyles()
   return (
-    <Link to={`/users/${id}`}>
+    <Link
+      to={{
+        pathname: `/users/${id}`,
+        state: {
+          id
+        }
+      }}
+    >
       <Card className={classes.card}>
         <CardMedia image={imageUrl} title="Profile" className={classes.image} />
         <CardContent className={classes.content}>
           <Typography variant="h5" color="secondary">
-            Firstname Lastname
+            {first} {last}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Full Stack
+            {program}
           </Typography>
           <Typography variant="body1">{email}</Typography>
         </CardContent>
         <Typography variant="h2" className={classes.cohort}>
-          C35
+          C{cohort}
         </Typography>
       </Card>
     </Link>

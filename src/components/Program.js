@@ -17,11 +17,11 @@ const Program = ({ handleInputChange, program }) => {
         onChange={handleInputChange('program')}
       >
         <FormControlLabel
-          value="full stack"
+          value="Full Stack"
           control={<Radio />}
           label="Full Stack"
         />
-        <FormControlLabel value="ux/ui" control={<Radio />} label="UX/UI" />
+        <FormControlLabel value="UX/UI" control={<Radio />} label="UX/UI" />
       </RadioGroup>
     </FormControl>
   )
