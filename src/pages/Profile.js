@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Copyright from '../components/Copyright'
 import Program from '../components/Program'
+import ResumeUpload from '../components/ResumeUpload'
 
 // Material UI Stuff
 import { makeStyles } from '@material-ui/core/styles'
@@ -284,16 +285,16 @@ const Profile = () => {
                   )}
                 </Button>
               </form>
+              <ResumeUpload></ResumeUpload>
             </div>
-
             <Box mt={2}>
               <Copyright />
             </Box>
           </Container>
         </div>
       ) : (
-        <CircularProgress size={60} className={classes.progressThree} />
-      )}
+          <CircularProgress size={60} className={classes.progressThree} />
+        )}
     </>
   )
 }
