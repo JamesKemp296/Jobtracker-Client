@@ -76,7 +76,7 @@ const Login = ({ history }) => {
         localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
         dispatch({ type: 'LOGIN' })
         setIsLoading(false)
-        history.push('/')
+        history.push('/dashboard')
       })
       .catch(err => {
         setErrors(err.response.data)
