@@ -10,28 +10,18 @@ class ResumeUpload extends Component {
       url: "",
       progress: 0
     };
-
-    // return (
-    //   <>
-    //     <Button variant="contained" component="label">
-    //       Upload Resume
-    // <input type="file" style={{ display: "none" }}
-    //       />
-    //     </Button>
-    //   </>
-    // )
   }
 
   handleChange = e => {
     if (e.target.files[0]) {
-      const image = e.target.files[0];
-      this.setState(() => ({ image }));
+      const file = e.target.files[0];
+      this.setState(() => ({ file }));
     }
   };
 
   handleUpload = () => {
-    const { image } = this.state;
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    const { file } = this.state;
+    const uploadTask = storage.ref(`files/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
       snapshot => {
@@ -48,8 +38,8 @@ class ResumeUpload extends Component {
       () => {
         // complete function ...
         storage
-          .ref("images")
-          .child(image.name)
+          .ref("files")
+          .child(file.name)
           .getDownloadURL()
           .then(url => {
             this.setState({ url });
@@ -61,7 +51,7 @@ class ResumeUpload extends Component {
     return (
       <div className="center">
         <br />
-        <h2 className="green-text">React Firebase Image Uploader</h2>
+        <h2 className="green-text">React Firebase File Uploader</h2>
         <br />
         <br />
         <div className="row">
@@ -89,7 +79,7 @@ class ResumeUpload extends Component {
         <br />
         <img
           src={this.state.url || "https://via.placeholder.com/400x300"}
-          alt="Uploaded Images"
+          alt="Uploaded Files"
           height="300"
           width="400"
         />
