@@ -36,6 +36,7 @@ const User = ({ email, imageUrl, id, first, last, cohort, program }) => {
           id
         }
       }}
+      key={id}
     >
       <Card className={classes.card}>
         <CardMedia image={imageUrl} title="Profile" className={classes.image} />
