@@ -112,7 +112,7 @@ const Alumni = ({ location }) => {
                 User's Job Postings
               </Typography>
               <br />
-              {job.length > 1 ? (
+              {job.length >= 1 ? (
                 job.map((job, index) => (
                   <div key={index}>
                     <Card className={classes.card}>
