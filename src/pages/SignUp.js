@@ -208,11 +208,6 @@ const SignUp = ({ history }) => {
             handleInputChange={handleInputChange}
             class={formData.program}
           />
-          {errors.general && (
-            <Typography variant="body2" className={classes.customError}>
-              {errors.general}
-            </Typography>
-          )}
           <Button
             type="submit"
             fullWidth

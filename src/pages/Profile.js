@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+
+// components
 import Copyright from '../components/Copyright'
 import Program from '../components/Program'
+import Alert from '../components/Alert'
 
 // Material UI Stuff
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,6 +17,7 @@ import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import Tooltip from '@material-ui/core/Tooltip'
+import Snackbar from '@material-ui/core/Snackbar'
 
 const INITIAL_STATE = {
   cohort: '',
@@ -35,6 +39,15 @@ const Profile = () => {
   const [errors, setErrors] = useState({})
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState({})
+  const [open, setOpen] = React.useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
 
   const isInvalid = !formData.cohort || !formData.program || isloading
 
@@ -81,20 +94,13 @@ const Profile = () => {
       })
 
       .then(res => {
+        setOpen(true)
         setMessage(res.data)
         fetchProfile()
         setIsLoading(false)
-        const timer = setTimeout(() => {
-          setMessage('')
-          clearTimeout(timer)
-        }, 2500)
       })
       .catch(err => {
         setErrors(err.response.data)
-        const timer = setTimeout(() => {
-          setErrors('')
-          clearTimeout(timer)
-        }, 2500)
         console.log(err)
         setIsLoading(false)
       })
@@ -113,13 +119,10 @@ const Profile = () => {
         }
       })
       .then(res => {
+        setOpen(true)
         setMessage(res.data)
         fetchProfile()
         setIsLoading(false)
-        const timer = setTimeout(() => {
-          setMessage('')
-          clearTimeout(timer)
-        }, 2500)
       })
       .catch(err => {
         console.log(err)
@@ -148,7 +151,8 @@ const Profile = () => {
       marginTop: theme.spacing(8),
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative'
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
@@ -159,19 +163,13 @@ const Profile = () => {
     },
     progressTwo: {
       position: 'absolute',
-      marginTop: '20px'
+      top: '20px'
     },
     progressThree: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
       width: '40%'
-    },
-    customError: {
-      color: 'green',
-      fontSize: '0.8rem',
-      width: '100%',
-      position: 'absolute'
     }
   }))
 
@@ -189,7 +187,7 @@ const Profile = () => {
                 className={classes.logo}
               />
               {isloading && (
-                <CircularProgress size={30} className={classes.progressTwo} />
+                <CircularProgress size={180} className={classes.progressTwo} />
               )}
               <Tooltip title="Edit Profile Picture" placement="top">
                 <IconButton
@@ -266,11 +264,6 @@ const Profile = () => {
                   program={formData.program}
                   class={formData.program}
                 />
-
-                <Typography variant="body2" className={classes.customError}>
-                  {message.message}
-                </Typography>
-
                 <Button
                   type="submit"
                   fullWidth
@@ -284,6 +277,17 @@ const Profile = () => {
                     <CircularProgress size={30} className={classes.progress} />
                   )}
                 </Button>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  style={{ top: 70 }}
+                  open={open}
+                  autoHideDuration={4000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    {message.message}
+                  </Alert>
+                </Snackbar>
               </form>
             </div>
 

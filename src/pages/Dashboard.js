@@ -3,6 +3,7 @@ import axios from 'axios'
 
 // components
 import JobCard from '../components/JobCard'
+import Alert from '../components/Alert'
 
 // Material UI Stuff
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -12,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
+import Snackbar from '@material-ui/core/Snackbar'
 
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
@@ -31,6 +33,15 @@ const Alumni = ({ location }) => {
   const [user, setUser] = useState(null)
   const [job, setJob] = useState([])
   const [message, setMessage] = useState({})
+  const [open, setOpen] = React.useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
 
   // This is for the fetching the user data
 
@@ -79,21 +90,14 @@ const Alumni = ({ location }) => {
       })
 
       .then(res => {
+        setOpen(true)
         setMessage(res.data)
         fetchUser()
         setIsLoading(false)
         setFormData(INITIAL_STATE)
-        const timer = setTimeout(() => {
-          setMessage('')
-          clearTimeout(timer)
-        }, 2500)
       })
       .catch(err => {
         setErrors(err.response.data)
-        const timer = setTimeout(() => {
-          setErrors('')
-          clearTimeout(timer)
-        }, 2500)
         console.log(err)
         setIsLoading(false)
       })
@@ -200,6 +204,17 @@ const Alumni = ({ location }) => {
                     <CircularProgress size={30} className={classes.progress} />
                   )}
                 </Button>
+                <Snackbar
+                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  style={{ top: 70 }}
+                  open={open}
+                  autoHideDuration={4000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    {message.message}
+                  </Alert>
+                </Snackbar>
               </Grid>
             </Grid>
           </form>
@@ -224,6 +239,8 @@ const Alumni = ({ location }) => {
             fetchUser={fetchUser}
             setMessage={setMessage}
             index={index}
+            open={open}
+            setOpen={setOpen}
           />
         ))
       ) : (
