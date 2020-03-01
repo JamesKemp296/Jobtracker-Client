@@ -12,7 +12,7 @@ const SelectStatus = ({ status, handleInputChange }) => {
   return (
     <FormControl style={{ width: '100%' }}>
       <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-        Title
+        Status
       </InputLabel>
       <Select
         labelId="demo-simple-select-outlined-label"
