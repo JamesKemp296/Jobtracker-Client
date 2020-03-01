@@ -19,12 +19,6 @@ const useStyles = makeStyles({
   },
   content: {
     padding: 25
-  },
-  cohort: {
-    display: 'grid',
-    placeItems: 'center',
-    marginLeft: 'auto',
-    padding: 25
   }
 })
 

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 // components
 import JobCard from '../components/JobCard'
 import Alert from '../components/Alert'
+import SelectStatus from '../components/SelectStatus'
 
 // Material UI Stuff
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -155,19 +156,9 @@ const Alumni = ({ location }) => {
                 />
               </Grid>
               <Grid item sm={2} xs={12} className={classes.grid}>
-                <TextField
-                  className={classes.jobField}
-                  margin="normal"
-                  fullWidth
-                  id="status"
-                  type="text"
-                  label="Status"
-                  name="status"
-                  autoComplete="status"
-                  helperText={errors.status}
-                  error={errors.status ? true : false}
-                  value={formData.status}
-                  onChange={handleInputChange('status')}
+                <SelectStatus
+                  status={formData.status}
+                  handleInputChange={handleInputChange}
                 />
               </Grid>
               <Grid item sm={2} xs={12} className={classes.grid}>

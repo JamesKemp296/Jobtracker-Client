@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 
+// components
+import SelectStatus from '../components/SelectStatus'
+
 // Material UI Stuff
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -192,17 +195,9 @@ const JobCard = ({
                   />
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.grid}>
-                  <TextField
-                    className={classes.jobField}
-                    margin="normal"
-                    fullWidth
-                    id="edit-status"
-                    type="text"
-                    label="Status"
-                    name="status"
-                    autoComplete="status"
-                    value={jobData.status}
-                    onChange={handleInputChange('status')}
+                  <SelectStatus
+                    status={jobData.status}
+                    handleInputChange={handleInputChange}
                   />
                 </Grid>
                 <Grid item sm={2} xs={12} className={classes.grid}>
