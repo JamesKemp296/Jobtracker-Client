@@ -285,7 +285,6 @@ const Profile = () => {
                   )}
                 </Button>
               </form>
-              <ResumeUpload></ResumeUpload>
             </div>
             <Box mt={2}>
               <Copyright />
