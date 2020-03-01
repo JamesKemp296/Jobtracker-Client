@@ -107,39 +107,41 @@ const JobCard = ({
       {!edit ? (
         <Card className={classes.card}>
           <CardContent className={classes.content}>
-            <Box className={classes.tenPercent} style={{ display: 'flex' }}>
-              <button onClick={handleEditMode} className={classes.button}>
-                <EditIcon />
-              </button>
-              <button onClick={deleteJob} className={classes.button}>
-                <DeleteIcon />
-              </button>
-            </Box>
-            <Typography
-              variant="h5"
-              color="secondary"
-              className={classes.twentyPercent}
-            >
-              {company}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              className={classes.twentyPercent}
-            >
-              {position}
-            </Typography>
-            <Typography variant="body2" className={classes.twentyPercent}>
-              {status}
-            </Typography>
-            <Link href={link} target="blank">
-              Job Link
-            </Link>
-            <Typography variant="body2" className={classes.timeStamp}>
-              {moment(createdAt)
-                .startOf('minute')
-                .fromNow()}
-            </Typography>
+            <Grid container alignItems="center">
+              <Grid item sm={1} xs={12} style={{ display: 'flex' }}>
+                <button onClick={handleEditMode} className={classes.button}>
+                  <EditIcon />
+                </button>
+                <button onClick={deleteJob} className={classes.button}>
+                  <DeleteIcon />
+                </button>
+              </Grid>
+              <Grid item sm={3} xs={12}>
+                <Typography variant="h5" color="secondary">
+                  {company}
+                </Typography>
+              </Grid>
+              <Grid item sm={3} xs={12}>
+                <Typography variant="body2" color="textSecondary">
+                  {position}
+                </Typography>
+              </Grid>
+              <Grid item sm={2} xs={12}>
+                <Typography variant="body2">{status}</Typography>
+              </Grid>
+              <Grid item sm={1} xs={12}>
+                <Link href={link} target="blank">
+                  Job Link
+                </Link>
+              </Grid>
+              <Grid item sm={2} xs={12}>
+                <Typography variant="body2" className={classes.timeStamp}>
+                  {moment(createdAt)
+                    .startOf('minute')
+                    .fromNow()}
+                </Typography>
+              </Grid>
+            </Grid>
           </CardContent>
         </Card>
       ) : (
@@ -149,58 +151,64 @@ const JobCard = ({
               <button onClick={() => setEdit(!edit)} className={classes.button}>
                 <CloseIcon />
               </button>
-              <TextField
-                className={classes.jobField}
-                margin="normal"
-                fullWidth
-                id="edit-company"
-                type="company"
-                label="Company"
-                name="company"
-                autoComplete="company"
-                value={jobData.company}
-                onChange={handleInputChange('company')}
-              />
-              <TextField
-                className={classes.jobField}
-                margin="normal"
-                fullWidth
-                id="edit-position"
-                type="position"
-                label="Position"
-                name="position"
-                autoComplete="position"
-                value={jobData.position}
-                onChange={handleInputChange('position')}
-              />
-              <TextField
-                className={classes.jobField}
-                margin="normal"
-                fullWidth
-                id="edit-status"
-                type="text"
-                label="Status"
-                name="status"
-                autoComplete="status"
-                // helperText={errors.status}
-                // error={errors.status ? true : false}
-                value={jobData.status}
-                onChange={handleInputChange('status')}
-              />
-              <TextField
-                className={classes.jobField}
-                margin="normal"
-                fullWidth
-                id="edit-link"
-                type="text"
-                label="Links"
-                name="link"
-                autoComplete="link"
-                // helperText={errors.link}
-                // error={errors.link ? true : false}
-                value={jobData.link}
-                onChange={handleInputChange('link')}
-              />
+              <Grid container spacing={2}>
+                <Grid item sm={3} xs={12}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="edit-company"
+                    type="company"
+                    label="Company"
+                    name="company"
+                    autoComplete="company"
+                    value={jobData.company}
+                    onChange={handleInputChange('company')}
+                  />
+                </Grid>
+                <Grid item sm={3} xs={12}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="edit-position"
+                    type="position"
+                    label="Position"
+                    name="position"
+                    autoComplete="position"
+                    value={jobData.position}
+                    onChange={handleInputChange('position')}
+                  />
+                </Grid>
+                <Grid item sm={3} xs={12}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="edit-status"
+                    type="text"
+                    label="Status"
+                    name="status"
+                    autoComplete="status"
+                    // helperText={errors.status}
+                    // error={errors.status ? true : false}
+                    value={jobData.status}
+                    onChange={handleInputChange('status')}
+                  />
+                </Grid>
+                <Grid item sm={3} xs={12}>
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    id="edit-link"
+                    type="text"
+                    label="Links"
+                    name="link"
+                    autoComplete="link"
+                    // helperText={errors.link}
+                    // error={errors.link ? true : false}
+                    value={jobData.link}
+                    onChange={handleInputChange('link')}
+                  />
+                </Grid>
+              </Grid>
               <Button type="submit" variant="contained" color="primary">
                 UPDATE
               </Button>

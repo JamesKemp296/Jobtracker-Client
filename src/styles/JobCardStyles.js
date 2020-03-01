@@ -3,7 +3,7 @@ export default makeStyles({
   card: {
     display: 'flex',
     marginBottom: 20,
-    height: '100px'
+    minHeight: 120
   },
   form: {
     display: 'flex',
@@ -22,8 +22,7 @@ export default makeStyles({
   },
   timeStamp: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    width: '20%'
+    justifyContent: 'flex-end'
   },
   twentyPercent: {
     width: '20%'
