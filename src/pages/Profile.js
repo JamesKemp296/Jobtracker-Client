@@ -52,6 +52,7 @@ const Profile = () => {
       })
       .then(res => {
         setUser(res.data)
+        console.log(res.data)
         setFormData({
           ...formData,
           github: res.data.user.github ? res.data.user.github : '',

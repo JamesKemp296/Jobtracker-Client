@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import moment from 'moment'
 
 // Material UI Stuff
 import { makeStyles } from '@material-ui/core/styles'
@@ -53,11 +54,13 @@ const Alumni = ({ location }) => {
         setUser(res.data)
         console.log(res.data)
         const Jobs = res.data.jobs.map(
-          ({ position, link, status, company }) => ({
+          ({ position, link, status, company, createdAt, jobId }) => ({
             position,
             link,
             status,
-            company
+            company,
+            createdAt,
+            jobId
           })
         )
         setJob(Jobs)
@@ -69,7 +72,6 @@ const Alumni = ({ location }) => {
     fetchUser()
   }, [])
 
-  let number = 1
   return (
     <div>
       <>
@@ -130,8 +132,10 @@ const Alumni = ({ location }) => {
                           Link: {job.link}
                         </Typography>
                       </CardContent>
-                      <Typography variant="h2" className={classes.cohort}>
-                        {number++}
+                      <Typography variant="h5" className={classes.cohort}>
+                        {moment(job.createdAt)
+                          .startOf('minute')
+                          .fromNow()}
                       </Typography>
                     </Card>
                   </div>
