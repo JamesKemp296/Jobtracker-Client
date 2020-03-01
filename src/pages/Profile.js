@@ -7,6 +7,9 @@ import Program from '../components/Program'
 import Alert from '../components/Alert'
 
 // Material UI Stuff
+import Chip from '@material-ui/core/Chip'
+import DescriptionIcon from '@material-ui/icons/Description'
+import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Container from '@material-ui/core/Container'
@@ -16,6 +19,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
+import ImageIcon from '@material-ui/icons/Image'
 import Tooltip from '@material-ui/core/Tooltip'
 import Snackbar from '@material-ui/core/Snackbar'
 
@@ -128,6 +132,32 @@ const Profile = () => {
         console.log(err)
       })
   }
+  const handleFileChange = async event => {
+    const file = event.target.files[0]
+    const fileData = new FormData()
+
+    const picToken = await localStorage.FBIdToken
+    fileData.append('file', file, file.name)
+    await axios
+      .post('user/resume', fileData, {
+        headers: {
+          Authorization: `${picToken}`
+        }
+      })
+      .then(res => {
+        setOpen(true)
+        setMessage(res.data)
+        fetchProfile()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleEditFile = () => {
+    const fileInput = document.getElementById('fileInput')
+    fileInput.click()
+  }
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById('imageInput')
@@ -189,23 +219,49 @@ const Profile = () => {
               {isloading && (
                 <CircularProgress size={180} className={classes.progressTwo} />
               )}
-              <Tooltip title="Edit Profile Picture" placement="top">
-                <IconButton
-                  onClick={handleEditPicture}
-                  className={classes.button}
-                >
-                  <EditIcon color="primary" />
-                </IconButton>
-              </Tooltip>
-              <input
-                type="file"
-                id="imageInput"
-                onChange={handleImageChange}
-                hidden="hidden"
-              />
-              <Typography variant="h5" className={classes.pageTitle}>
+              <div style={{ display: 'flex' }}>
+                <Tooltip title="Edit Profile Picture" placement="top">
+                  <IconButton
+                    onClick={handleEditPicture}
+                    className={classes.button}
+                  >
+                    <ImageIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
+                <input
+                  type="file"
+                  id="fileInput"
+                  onChange={handleFileChange}
+                  hidden="hidden"
+                />
+                <Tooltip title="Upload Resume" placement="top">
+                  <IconButton
+                    onClick={handleEditFile}
+                    className={classes.button}
+                  >
+                    <DescriptionIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
+                <input
+                  type="file"
+                  id="imageInput"
+                  onChange={handleImageChange}
+                  hidden="hidden"
+                />
+              </div>
+              <Typography
+                variant="h5"
+                className={classes.pageTitle}
+                style={{ marginBottom: '2%' }}
+              >
                 Welcome, {user.user.firstName}
               </Typography>
+              {user.user.resumeUrl && (
+                <Link href={user.user.resumeUrl} target="blank">
+                  <Chip label="View Resume" clickable />
+                </Link>
+              )}
+
               <form noValidate onSubmit={handleSubmit} className={classes.form}>
                 <TextField
                   variant="outlined"
@@ -213,7 +269,7 @@ const Profile = () => {
                   fullWidth
                   id="website"
                   type="website"
-                  label="Website"
+                  label="Website URL"
                   name="website"
                   autoComplete="website"
                   value={formData.website}
@@ -226,7 +282,7 @@ const Profile = () => {
                   fullWidth
                   id="linkedIn"
                   type="linkedIn"
-                  label="LinkedIn"
+                  label="LinkedIn URL"
                   name="linkedIn"
                   autoComplete="linkedIn"
                   value={formData.linkedIn}
@@ -238,7 +294,7 @@ const Profile = () => {
                   fullWidth
                   id="github"
                   type="github"
-                  label="GitHub"
+                  label="GitHub URL"
                   name="github"
                   autoComplete="github"
                   value={formData.github}
@@ -259,11 +315,13 @@ const Profile = () => {
                   value={formData.cohort}
                   onChange={handleInputChange('cohort')}
                 />
+
                 <Program
                   handleInputChange={handleInputChange}
                   program={formData.program}
                   class={formData.program}
                 />
+
                 <Button
                   type="submit"
                   fullWidth
