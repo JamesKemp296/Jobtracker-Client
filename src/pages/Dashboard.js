@@ -1,55 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// components
 import JobCard from '../components/JobCard'
+
 // Material UI Stuff
-import { makeStyles } from '@material-ui/core/styles'
-
 import CircularProgress from '@material-ui/core/CircularProgress'
-
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
+import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 
-const useStyles = makeStyles({
-  form: {
-    padding: 25
-  },
-  card: {
-    display: 'flex',
-    marginBottom: 20
-  },
-  image: {
-    minWidth: 200,
-    objectFit: 'cover'
-  },
-  content: {
-    padding: 25
-  },
-  cohort: {
-    display: 'grid',
-    placeItems: 'center',
-    marginLeft: 'auto',
-    padding: 25
-  },
-  jobTitle: {
-    textAlign: 'center'
-  },
-  progressThree: {
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    width: '40%'
-  },
-  jobField: {
-    margin: 5
-  },
-  jobFormCard: {
-    marginBottom: 20
-  }
-})
+// JobCardStyles
+import useJobCardStyles from '../styles/JobCardStyles'
 
 const INITIAL_STATE = {
   company: '',
@@ -59,7 +23,7 @@ const INITIAL_STATE = {
 }
 
 const Alumni = ({ location }) => {
-  const classes = useStyles()
+  const classes = useJobCardStyles()
   const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
@@ -144,83 +108,80 @@ const Alumni = ({ location }) => {
 
   return (
     <div>
-      <Card className={classes.jobFormCard}>
-        <form
-          noValidate
-          onSubmit={handleSubmit}
-          className={classes.form}
-          style={{ display: 'flex', alignItems: 'flex-end' }}
-        >
-          <TextField
-            className={classes.jobField}
-            margin="normal"
-            fullWidth
-            id="company"
-            type="company"
-            label="company"
-            name="company"
-            autoComplete="company"
-            value={formData.company}
-            onChange={handleInputChange('company')}
-          />
-          <TextField
-            className={classes.jobField}
-            margin="normal"
-            fullWidth
-            id="position"
-            type="position"
-            label="position"
-            name="position"
-            autoComplete="position"
-            value={formData.position}
-            onChange={handleInputChange('position')}
-          />
-          <TextField
-            className={classes.jobField}
-            margin="normal"
-            fullWidth
-            id="status"
-            type="text"
-            label="status"
-            name="status"
-            autoComplete="status"
-            helperText={errors.status}
-            error={errors.status ? true : false}
-            value={formData.status}
-            onChange={handleInputChange('status')}
-          />
-          <TextField
-            className={classes.jobField}
-            margin="normal"
-            fullWidth
-            id="link"
-            type="text"
-            label="link"
-            name="link"
-            autoComplete="link"
-            helperText={errors.link}
-            error={errors.link ? true : false}
-            value={formData.link}
-            onChange={handleInputChange('link')}
-          />
+      <Card className={classes.card}>
+        <CardContent className={classes.content}>
+          <form noValidate onSubmit={handleSubmit} className={classes.form}>
+            <TextField
+              className={classes.jobField}
+              margin="normal"
+              fullWidth
+              id="company"
+              type="company"
+              label="Company"
+              name="company"
+              autoComplete="company"
+              value={formData.company}
+              onChange={handleInputChange('company')}
+            />
+            <TextField
+              className={classes.jobField}
+              margin="normal"
+              fullWidth
+              id="position"
+              type="position"
+              label="Position"
+              name="position"
+              autoComplete="position"
+              value={formData.position}
+              onChange={handleInputChange('position')}
+            />
+            <TextField
+              className={classes.jobField}
+              margin="normal"
+              fullWidth
+              id="status"
+              type="text"
+              label="Status"
+              name="status"
+              autoComplete="status"
+              helperText={errors.status}
+              error={errors.status ? true : false}
+              value={formData.status}
+              onChange={handleInputChange('status')}
+            />
+            <TextField
+              className={classes.jobField}
+              margin="normal"
+              fullWidth
+              id="link"
+              type="text"
+              label="Link"
+              name="link"
+              autoComplete="link"
+              helperText={errors.link}
+              error={errors.link ? true : false}
+              value={formData.link}
+              onChange={handleInputChange('link')}
+            />
 
-          <Typography variant="body2" className={classes.customError}>
-            {message.message}
-          </Typography>
+            <Typography variant="body2" className={classes.customError}>
+              {message.message}
+            </Typography>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={isInvalid}
-          >
-            Submit
-            {isloading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={isInvalid}
+            >
+              Submit
+              {isloading && (
+                <CircularProgress size={30} className={classes.progress} />
+              )}
+            </Button>
+          </form>
+        </CardContent>
       </Card>
       {job.length >= 1 ? (
         job.map((job, index) => (
