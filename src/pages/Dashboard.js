@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
+import Grid from '@material-ui/core/Grid'
 
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
@@ -111,75 +112,96 @@ const Alumni = ({ location }) => {
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <form noValidate onSubmit={handleSubmit} className={classes.form}>
-            <TextField
-              className={classes.jobField}
-              margin="normal"
-              fullWidth
-              id="company"
-              type="company"
-              label="Company"
-              name="company"
-              autoComplete="company"
-              value={formData.company}
-              onChange={handleInputChange('company')}
-            />
-            <TextField
-              className={classes.jobField}
-              margin="normal"
-              fullWidth
-              id="position"
-              type="position"
-              label="Position"
-              name="position"
-              autoComplete="position"
-              value={formData.position}
-              onChange={handleInputChange('position')}
-            />
-            <TextField
-              className={classes.jobField}
-              margin="normal"
-              fullWidth
-              id="status"
-              type="text"
-              label="Status"
-              name="status"
-              autoComplete="status"
-              helperText={errors.status}
-              error={errors.status ? true : false}
-              value={formData.status}
-              onChange={handleInputChange('status')}
-            />
-            <TextField
-              className={classes.jobField}
-              margin="normal"
-              fullWidth
-              id="link"
-              type="text"
-              label="Link"
-              name="link"
-              autoComplete="link"
-              helperText={errors.link}
-              error={errors.link ? true : false}
-              value={formData.link}
-              onChange={handleInputChange('link')}
-            />
-
-            <Typography variant="body2" className={classes.customError}>
-              {message.message}
-            </Typography>
-
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              disabled={isInvalid}
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justify="space-between"
             >
-              Submit
-              {isloading && (
-                <CircularProgress size={30} className={classes.progress} />
-              )}
-            </Button>
+              <Grid item sm="auto" xs={12} className={classes.grid}>
+                <Typography>New</Typography>
+                <Typography>Job</Typography>
+              </Grid>
+              <Grid item sm={3} xs={12} className={classes.grid}>
+                <TextField
+                  className={classes.jobField}
+                  margin="normal"
+                  fullWidth
+                  id="company"
+                  type="company"
+                  label="Company"
+                  name="company"
+                  autoComplete="company"
+                  value={formData.company}
+                  onChange={handleInputChange('company')}
+                />
+              </Grid>
+              <Grid item sm={3} xs={12} className={classes.grid}>
+                <TextField
+                  className={classes.jobField}
+                  margin="normal"
+                  fullWidth
+                  id="position"
+                  type="position"
+                  label="Position"
+                  name="position"
+                  autoComplete="position"
+                  value={formData.position}
+                  onChange={handleInputChange('position')}
+                />
+              </Grid>
+              <Grid item sm={2} xs={12} className={classes.grid}>
+                <TextField
+                  className={classes.jobField}
+                  margin="normal"
+                  fullWidth
+                  id="status"
+                  type="text"
+                  label="Status"
+                  name="status"
+                  autoComplete="status"
+                  helperText={errors.status}
+                  error={errors.status ? true : false}
+                  value={formData.status}
+                  onChange={handleInputChange('status')}
+                />
+              </Grid>
+              <Grid item sm={2} xs={12} className={classes.grid}>
+                <TextField
+                  className={classes.jobField}
+                  margin="normal"
+                  fullWidth
+                  id="link"
+                  type="text"
+                  label="Link"
+                  name="link"
+                  autoComplete="link"
+                  helperText={errors.link}
+                  error={errors.link ? true : false}
+                  value={formData.link}
+                  onChange={handleInputChange('link')}
+                />
+              </Grid>
+              {/* to be replaced with snackbar */}
+              {/* <Typography variant="body2" className={classes.customError}>
+              {message.message}
+            </Typography> */}
+              <Grid item sm={1} xs={12} className={classes.grid}>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={isInvalid}
+                  className={classes.submit}
+                >
+                  Submit
+                  {isloading && (
+                    <CircularProgress size={30} className={classes.progress} />
+                  )}
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </CardContent>
       </Card>
@@ -205,7 +227,9 @@ const Alumni = ({ location }) => {
           />
         ))
       ) : (
-        <Typography variant="h5">No User Job Postings</Typography>
+        <Typography variant="h5" style={{ textAlign: 'center', marginTop: 50 }}>
+          No User Job Postings
+        </Typography>
       )}
     </div>
   )

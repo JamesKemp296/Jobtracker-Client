@@ -3,7 +3,7 @@ export default makeStyles({
   card: {
     display: 'flex',
     marginBottom: 20,
-    minHeight: 120
+    minHeight: 90
   },
   form: {
     display: 'flex',
@@ -25,6 +25,16 @@ export default makeStyles({
     justifyContent: 'flex-end'
   },
   jobField: {
-    margin: 5
+    margin: 0,
+    padding: 0
+  },
+  grid: {
+    padding: 0
+  },
+  submit: {
+    position: 'relative'
+  },
+  progress: {
+    position: 'absolute'
   }
 })

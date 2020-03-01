@@ -9,11 +9,11 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
-import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import CloseIcon from '@material-ui/icons/Close'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
@@ -25,10 +25,6 @@ const JobCard = ({
   link,
   createdAt,
   id,
-  formData,
-  setFormData,
-  setIsLoading,
-  isloading,
   setMessage,
   setErrors,
   fetchUser,
@@ -37,12 +33,20 @@ const JobCard = ({
   const classes = useJobCardStyles()
 
   const [edit, setEdit] = useState(false)
+  const [isloading, setIsLoading] = useState(false)
   const [jobData, setJobData] = useState({
     company,
     position,
     status,
     link
   })
+
+  const isInvalid =
+    !jobData.company ||
+    !jobData.status ||
+    !jobData.link ||
+    !jobData.position ||
+    isloading
 
   const handleInputChange = field => e => {
     setJobData({ ...jobData, [field]: e.target.value })
@@ -154,7 +158,7 @@ const JobCard = ({
                 alignItems="center"
                 justify="space-between"
               >
-                <Grid item sm="auto" xs={12}>
+                <Grid item sm="auto" xs={12} className={classes.grid}>
                   <button
                     onClick={() => setEdit(!edit)}
                     className={classes.button}
@@ -162,8 +166,9 @@ const JobCard = ({
                     <CloseIcon />
                   </button>
                 </Grid>
-                <Grid item sm={3} xs={12}>
+                <Grid item sm={3} xs={12} className={classes.grid}>
                   <TextField
+                    className={classes.jobField}
                     margin="normal"
                     fullWidth
                     id="edit-company"
@@ -175,8 +180,9 @@ const JobCard = ({
                     onChange={handleInputChange('company')}
                   />
                 </Grid>
-                <Grid item sm={3} xs={12}>
+                <Grid item sm={3} xs={12} className={classes.grid}>
                   <TextField
+                    className={classes.jobField}
                     margin="normal"
                     fullWidth
                     id="edit-position"
@@ -188,8 +194,9 @@ const JobCard = ({
                     onChange={handleInputChange('position')}
                   />
                 </Grid>
-                <Grid item sm={2} xs={12}>
+                <Grid item sm={2} xs={12} className={classes.grid}>
                   <TextField
+                    className={classes.jobField}
                     margin="normal"
                     fullWidth
                     id="edit-status"
@@ -197,14 +204,13 @@ const JobCard = ({
                     label="Status"
                     name="status"
                     autoComplete="status"
-                    // helperText={errors.status}
-                    // error={errors.status ? true : false}
                     value={jobData.status}
                     onChange={handleInputChange('status')}
                   />
                 </Grid>
-                <Grid item sm={2} xs={12}>
+                <Grid item sm={2} xs={12} className={classes.grid}>
                   <TextField
+                    className={classes.jobField}
                     margin="normal"
                     fullWidth
                     id="edit-link"
@@ -212,15 +218,26 @@ const JobCard = ({
                     label="Links"
                     name="link"
                     autoComplete="link"
-                    // helperText={errors.link}
-                    // error={errors.link ? true : false}
                     value={jobData.link}
                     onChange={handleInputChange('link')}
                   />
                 </Grid>
-                <Grid item sm={1} xs={12}>
-                  <Button type="submit" variant="contained" color="primary">
+                <Grid item sm={1} xs={12} className={classes.grid}>
+                  <Button
+                    fullWidth
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    disabled={isInvalid}
+                  >
                     UPDATE
+                    {isloading && (
+                      <CircularProgress
+                        size={30}
+                        className={classes.progress}
+                      />
+                    )}
                   </Button>
                 </Grid>
               </Grid>
