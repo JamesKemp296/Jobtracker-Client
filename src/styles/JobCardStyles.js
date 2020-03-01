@@ -36,5 +36,28 @@ export default makeStyles({
   },
   progress: {
     position: 'absolute'
+  },
+
+  cardTwo: {
+    display: 'flex',
+    marginBottom: 20,
+    minHeight: '140px'
+  },
+  image: {
+    minWidth: 180,
+    objectFit: 'cover'
+  },
+  marginBottom: {
+    margin: '2% 0'
+  },
+
+  jobTitle: {
+    textAlign: 'center'
+  },
+  progressThree: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '40%'
   }
 })
