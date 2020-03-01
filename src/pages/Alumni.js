@@ -57,26 +57,24 @@ const Alumni = ({ location }) => {
       <>
         {user ? (
           <div>
-            <Container maxWidth="md">
-              <Card className={classes.cardTwo}>
-                <CardContent
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    justifyContent: 'space-evenly'
-                  }}
-                >
-                  <Grid container alignItems="center">
-                    <Grid item sm={1} xs={12}>
-                      <Avatar
-                        alt="Remy Sharp"
+            <Grid container>
+              <Grid item sm={1} xs={12}></Grid>
+              <Grid item sm={10} xs={12}>
+                <Card className={classes.cardTwo}>
+                  <Grid container>
+                    <Grid item sm={3} xs={12}>
+                      <img
                         src={user.user.imageUrl}
-                        style={{ height: 70, width: 70 }}
+                        alt="Profile"
+                        className={classes.image}
                       />
                     </Grid>
-                    <Grid item sm={3} xs={12} className={classes.marginBottom}>
-                      <div>
+                    <Grid item sm={9} xs={12}>
+                      <CardContent
+                        style={{
+                          padding: 25
+                        }}
+                      >
                         <Typography variant="h5" color="secondary">
                           {user.user.firstName} {user.user.lastName}
                         </Typography>
@@ -86,33 +84,31 @@ const Alumni = ({ location }) => {
                         <Typography variant="body2">
                           {user.user.email}
                         </Typography>
-                      </div>
-                    </Grid>
-                    <Grid item sm={2} xs={12} className={classes.marginBottom}>
-                      {user.user.github && (
-                        <Link href={user.user.github} target="blank">
-                          <Chip icon={<GitHubIcon />} label="GitHub" />
-                        </Link>
-                      )}
-                    </Grid>
-                    <Grid item sm={2} xs={12} className={classes.marginBottom}>
-                      {user.user.website && (
-                        <Link href={user.user.website} target="blank">
-                          <Chip icon={<LanguageIcon />} label="Website" />
-                        </Link>
-                      )}
-                    </Grid>
-                    <Grid item sm={2} xs={12} className={classes.marginBottom}>
-                      {user.user.linkedIn && (
-                        <Link href={user.user.linkedIn} target="blank">
-                          <Chip icon={<LinkedInIcon />} label="LinkedIn" />
-                        </Link>
-                      )}
+
+                        {user.user.github && (
+                          <Link href={user.user.github} target="blank">
+                            <Chip icon={<GitHubIcon />} label="GitHub" />
+                          </Link>
+                        )}
+
+                        {user.user.website && (
+                          <Link href={user.user.website} target="blank">
+                            <Chip icon={<LanguageIcon />} label="Website" />
+                          </Link>
+                        )}
+
+                        {user.user.linkedIn && (
+                          <Link href={user.user.linkedIn} target="blank">
+                            <Chip icon={<LinkedInIcon />} label="LinkedIn" />
+                          </Link>
+                        )}
+                      </CardContent>
                     </Grid>
                   </Grid>
-                </CardContent>
-              </Card>
-            </Container>
+                </Card>
+              </Grid>
+              <Grid item sm={1} xs={12}></Grid>
+            </Grid>
             <>
               <Typography variant="h4" className={classes.jobTitle}>
                 User's Job Postings

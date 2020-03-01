@@ -44,7 +44,8 @@ export default makeStyles({
     minHeight: '140px'
   },
   image: {
-    minWidth: 180,
+    width: '100%',
+    height: 140,
     objectFit: 'cover'
   },
   marginBottom: {
