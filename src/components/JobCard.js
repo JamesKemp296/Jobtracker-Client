@@ -28,7 +28,8 @@ const JobCard = ({
   setMessage,
   setErrors,
   fetchUser,
-  index
+  open,
+  setOpen
 }) => {
   const classes = useJobCardStyles()
 
@@ -73,10 +74,7 @@ const JobCard = ({
         fetchUser()
         setIsLoading(false)
         setEdit(!edit)
-        const timer = setTimeout(() => {
-          setMessage('')
-          clearTimeout(timer)
-        }, 2500)
+        setOpen(true)
       })
       .catch(err => {
         // setErrors(err.response.data)
@@ -97,7 +95,9 @@ const JobCard = ({
           Authorization: `${fireToken}`
         }
       })
-      .then(data => {
+      .then(res => {
+        setMessage(res.data)
+        setOpen(true)
         fetchUser()
       })
       .catch(err => {
@@ -105,7 +105,6 @@ const JobCard = ({
       })
   }
 
-  console.log({ edit })
   return (
     <>
       {!edit ? (
@@ -126,9 +125,7 @@ const JobCard = ({
                 </Typography>
               </Grid>
               <Grid item sm={3} xs={12}>
-                <Typography variant="body2" color="textSecondary">
-                  {position}
-                </Typography>
+                <Typography variant="body2">{position}</Typography>
               </Grid>
               <Grid item sm={2} xs={12}>
                 <Typography variant="body2">{status}</Typography>
