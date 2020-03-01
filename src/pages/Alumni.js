@@ -3,6 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 
 // Material UI Stuff
+import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -13,7 +14,13 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 const useStyles = makeStyles({
   card: {
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    height: '100px'
+  },
+  cardTwo: {
+    display: 'flex',
+    marginBottom: 20,
+    height: '140px'
   },
   image: {
     minWidth: 200,
@@ -26,7 +33,11 @@ const useStyles = makeStyles({
     display: 'grid',
     placeItems: 'center',
     marginLeft: 'auto',
-    padding: 25
+    padding: 25,
+    width: '20%'
+  },
+  twentyPercent: {
+    width: '20%'
   },
   jobTitle: {
     textAlign: 'center'
@@ -77,13 +88,20 @@ const Alumni = ({ location }) => {
       <>
         {user ? (
           <div>
-            <Card className={classes.card}>
+            <Card className={classes.cardTwo}>
               <CardMedia
                 image={user.user.imageUrl}
                 title="Profile"
                 className={classes.image}
               />
-              <CardContent className={classes.content}>
+              <CardContent
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  justifyContent: 'space-between'
+                }}
+              >
                 <Typography variant="h5" color="secondary">
                   {user.user.firstName} {user.user.lastName}
                 </Typography>
@@ -105,9 +123,6 @@ const Alumni = ({ location }) => {
                   LinkedIn: {user.user.linkedIn ? user.user.linkedIn : 'None'}
                 </Typography>
               </CardContent>
-              <Typography variant="h2" className={classes.cohort}>
-                C{user.user.cohort}
-              </Typography>
             </Card>
             <>
               <Typography variant="h4" className={classes.jobTitle}>
@@ -118,21 +133,43 @@ const Alumni = ({ location }) => {
                 job.map((job, index) => (
                   <div key={index}>
                     <Card className={classes.card}>
-                      <CardContent className={classes.content}>
-                        <Typography variant="h5" color="secondary">
-                          Company: {job.company}
+                      <CardContent
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <Typography
+                          variant="h5"
+                          color="secondary"
+                          className={classes.twentyPercent}
+                        >
+                          {job.company}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Position Title: {job.position}
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          className={classes.twentyPercent}
+                        >
+                          {job.position}
                         </Typography>
-                        <Typography variant="body2">
-                          Status: {job.status}
+                        <Typography
+                          variant="body2"
+                          className={classes.twentyPercent}
+                        >
+                          {job.status}
                         </Typography>
-                        <Typography variant="body2">
-                          Link: {job.link}
-                        </Typography>
+                        <Link
+                          href={job.link}
+                          target="blank"
+                          className={classes.twentyPercent}
+                        >
+                          Job Link
+                        </Link>
                       </CardContent>
-                      <Typography variant="h5" className={classes.cohort}>
+                      <Typography variant="body2" className={classes.cohort}>
                         {moment(job.createdAt)
                           .startOf('minute')
                           .fromNow()}
