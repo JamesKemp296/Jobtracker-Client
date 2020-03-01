@@ -148,10 +148,20 @@ const JobCard = ({
         <Card className={classes.card}>
           <CardContent className={classes.content}>
             <form onSubmit={handleEditJob} className={classes.form}>
-              <button onClick={() => setEdit(!edit)} className={classes.button}>
-                <CloseIcon />
-              </button>
-              <Grid container spacing={2}>
+              <Grid
+                container
+                spacing={2}
+                alignItems="center"
+                justify="space-between"
+              >
+                <Grid item sm="auto" xs={12}>
+                  <button
+                    onClick={() => setEdit(!edit)}
+                    className={classes.button}
+                  >
+                    <CloseIcon />
+                  </button>
+                </Grid>
                 <Grid item sm={3} xs={12}>
                   <TextField
                     margin="normal"
@@ -178,7 +188,7 @@ const JobCard = ({
                     onChange={handleInputChange('position')}
                   />
                 </Grid>
-                <Grid item sm={3} xs={12}>
+                <Grid item sm={2} xs={12}>
                   <TextField
                     margin="normal"
                     fullWidth
@@ -193,7 +203,7 @@ const JobCard = ({
                     onChange={handleInputChange('status')}
                   />
                 </Grid>
-                <Grid item sm={3} xs={12}>
+                <Grid item sm={2} xs={12}>
                   <TextField
                     margin="normal"
                     fullWidth
@@ -208,10 +218,12 @@ const JobCard = ({
                     onChange={handleInputChange('link')}
                   />
                 </Grid>
+                <Grid item sm={1} xs={12}>
+                  <Button type="submit" variant="contained" color="primary">
+                    UPDATE
+                  </Button>
+                </Grid>
               </Grid>
-              <Button type="submit" variant="contained" color="primary">
-                UPDATE
-              </Button>
             </form>
           </CardContent>
         </Card>

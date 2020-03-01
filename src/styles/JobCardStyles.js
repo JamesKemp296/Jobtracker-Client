@@ -24,12 +24,6 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'flex-end'
   },
-  twentyPercent: {
-    width: '20%'
-  },
-  tenPercent: {
-    width: '10%'
-  },
   jobField: {
     margin: 5
   }
