@@ -10,11 +10,16 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Link from '@material-ui/core/Link'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles({
   card: {
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    height: '100px'
   },
   image: {
     minWidth: 200,
@@ -27,7 +32,8 @@ const useStyles = makeStyles({
     display: 'grid',
     placeItems: 'center',
     marginLeft: 'auto',
-    padding: 25
+    padding: 25,
+    width: '20%'
   },
   jobTitle: {
     textAlign: 'center'
@@ -37,6 +43,15 @@ const useStyles = makeStyles({
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '40%'
+  },
+  twentyPercent: {
+    width: '20%'
+  },
+  tenPercent: {
+    width: '10%'
+  },
+  jobField: {
+    margin: 5
   }
 })
 
@@ -129,19 +144,51 @@ const JobCard = ({
       {!edit ? (
         <div>
           <Card className={classes.card}>
-            <CardContent className={classes.content}>
-              <button onClick={handleEditMode}>EDIT</button>
-              <button onClick={deleteJob}>DELETE</button>
-              <Typography variant="h5" color="secondary">
-                Company: {company}
+            <CardContent
+              className={classes.content}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                justifyContent: 'space-between'
+              }}
+            >
+              <div className={classes.tenPercent} style={{ display: 'flex' }}>
+                <button
+                  onClick={handleEditMode}
+                  style={{ border: '0', background: 'transparent' }}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  onClick={deleteJob}
+                  style={{ border: '0', background: 'transparent' }}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
+              <Typography
+                variant="h5"
+                color="secondary"
+                className={classes.twentyPercent}
+              >
+                {company}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Position Title: {position}
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                className={classes.twentyPercent}
+              >
+                {position}
               </Typography>
-              <Typography variant="body2">Status: {status}</Typography>
-              <Typography variant="body2">Link: {link}</Typography>
+              <Typography variant="body2" className={classes.twentyPercent}>
+                {status}
+              </Typography>
+              <Link href={link} target="blank">
+                Job Link
+              </Link>
             </CardContent>
-            <Typography variant="h5" className={classes.cohort}>
+            <Typography variant="body2" className={classes.cohort}>
               {moment(createdAt)
                 .startOf('minute')
                 .fromNow()}
@@ -151,9 +198,23 @@ const JobCard = ({
       ) : (
         <>
           <Card className={classes.card}>
-            <form onSubmit={handleEditJob}>
+            <form
+              onSubmit={handleEditJob}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+                padding: '25px'
+              }}
+            >
+              <button
+                onClick={() => setEdit(!edit)}
+                style={{ border: '0', background: 'transparent' }}
+              >
+                <CloseIcon />
+              </button>
               <TextField
-                variant="outlined"
+                className={classes.jobField}
                 margin="normal"
                 fullWidth
                 id="edit-company"
@@ -165,7 +226,7 @@ const JobCard = ({
                 onChange={handleInputChange('company')}
               />
               <TextField
-                variant="outlined"
+                className={classes.jobField}
                 margin="normal"
                 fullWidth
                 id="edit-position"
@@ -177,7 +238,7 @@ const JobCard = ({
                 onChange={handleInputChange('position')}
               />
               <TextField
-                variant="outlined"
+                className={classes.jobField}
                 margin="normal"
                 fullWidth
                 id="edit-status"
@@ -191,7 +252,7 @@ const JobCard = ({
                 onChange={handleInputChange('status')}
               />
               <TextField
-                variant="outlined"
+                className={classes.jobField}
                 margin="normal"
                 fullWidth
                 id="edit-link"
@@ -204,13 +265,8 @@ const JobCard = ({
                 value={jobData.link}
                 onChange={handleInputChange('link')}
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                UPDATE JOB
+              <Button type="submit" variant="contained" color="primary">
+                UPDATE
               </Button>
             </form>
           </Card>
