@@ -4,11 +4,7 @@ import axios from 'axios'
 // components
 import Copyright from '../components/Copyright'
 import Program from '../components/Program'
-<<<<<<< HEAD
-import ResumeUpload from '../components/ResumeUpload'
-=======
 import Alert from '../components/Alert'
->>>>>>> master
 
 // Material UI Stuff
 import Chip from '@material-ui/core/Chip'
