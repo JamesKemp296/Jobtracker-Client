@@ -111,7 +111,9 @@ const Profile = () => {
   }
 
   const handleImageChange = async event => {
+    setMessage('')
     const image = event.target.files[0]
+    if (!image) return
     const picData = new FormData()
     setIsLoading(true)
     const picToken = await localStorage.FBIdToken
@@ -129,13 +131,17 @@ const Profile = () => {
         setIsLoading(false)
       })
       .catch(err => {
-        console.log(err)
+        setOpen(true)
+        setIsLoading(false)
+        setErrors(err.response.data)
+        console.log(err.response.data)
       })
   }
   const handleFileChange = async event => {
+    setMessage('')
     const file = event.target.files[0]
+    if (!file) return
     const fileData = new FormData()
-
     const picToken = await localStorage.FBIdToken
     fileData.append('file', file, file.name)
     await axios
@@ -150,6 +156,9 @@ const Profile = () => {
         fetchProfile()
       })
       .catch(err => {
+        setOpen(true)
+        setIsLoading(false)
+        setErrors(err.response.data)
         console.log(err)
       })
   }
@@ -342,9 +351,15 @@ const Profile = () => {
                   autoHideDuration={4000}
                   onClose={handleClose}
                 >
-                  <Alert onClose={handleClose} severity="success">
-                    {message.message}
-                  </Alert>
+                  {message.message ? (
+                    <Alert onClose={handleClose} severity="success">
+                      {message.message}
+                    </Alert>
+                  ) : (
+                    <Alert onClose={handleClose} severity="error">
+                      {errors.error}
+                    </Alert>
+                  )}
                 </Snackbar>
               </form>
             </div>
