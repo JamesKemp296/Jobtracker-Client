@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles({
   card: {
@@ -12,16 +13,11 @@ const useStyles = makeStyles({
     marginBottom: 20
   },
   image: {
-    minWidth: 200,
+    width: '100%',
+    height: 140,
     objectFit: 'cover'
   },
   content: {
-    padding: 25
-  },
-  cohort: {
-    display: 'grid',
-    placeItems: 'center',
-    marginLeft: 'auto',
     padding: 25
   }
 })
@@ -36,21 +32,32 @@ const User = ({ email, imageUrl, id, first, last, cohort, program }) => {
           id
         }
       }}
+      key={id}
     >
       <Card className={classes.card}>
-        <CardMedia image={imageUrl} title="Profile" className={classes.image} />
-        <CardContent className={classes.content}>
-          <Typography variant="h5" color="secondary">
-            {first} {last}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            {program}
-          </Typography>
-          <Typography variant="body1">{email}</Typography>
-        </CardContent>
-        <Typography variant="h2" className={classes.cohort}>
-          C{cohort}
-        </Typography>
+        <Grid container>
+          <Grid item sm={3} xs={12}>
+            <img src={imageUrl} alt="Profile" className={classes.image} />
+          </Grid>
+          <Grid item sm={9} xs={12}>
+            <CardContent className={classes.content}>
+              <Grid container>
+                <Grid item sm={9} xs={12}>
+                  <Typography variant="h5" color="secondary">
+                    {first} {last}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {program}
+                  </Typography>
+                  <Typography variant="body1">{email}</Typography>
+                </Grid>
+                <Grid item sm={3} xs={12}>
+                  <Typography variant="h2">C{cohort}</Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Grid>
+        </Grid>
       </Card>
     </Link>
   )

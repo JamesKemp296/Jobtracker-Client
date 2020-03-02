@@ -1,45 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import moment from 'moment'
+import useJobCardStyles from '../styles/JobCardStyles'
 
 // Material UI Stuff
+import Avatar from '@material-ui/core/Avatar'
+import LinkedInIcon from '@material-ui/icons/LinkedIn'
+import LanguageIcon from '@material-ui/icons/Language'
+import Chip from '@material-ui/core/Chip'
+import GitHubIcon from '@material-ui/icons/GitHub'
+import Container from '@material-ui/core/Container'
+import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-const useStyles = makeStyles({
-  card: {
-    display: 'flex',
-    marginBottom: 20
-  },
-  image: {
-    minWidth: 200,
-    objectFit: 'cover'
-  },
-  content: {
-    padding: 25
-  },
-  cohort: {
-    display: 'grid',
-    placeItems: 'center',
-    marginLeft: 'auto',
-    padding: 25
-  },
-  jobTitle: {
-    textAlign: 'center'
-  },
-  progressThree: {
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    width: '40%'
-  }
-})
+import Grid from '@material-ui/core/Grid'
 
 const Alumni = ({ location }) => {
-  const classes = useStyles()
+  const classes = useJobCardStyles()
   const [user, setUser] = useState(null)
   const [job, setJob] = useState([])
   // This is for the fetching the user data
@@ -53,11 +34,13 @@ const Alumni = ({ location }) => {
         setUser(res.data)
         console.log(res.data)
         const Jobs = res.data.jobs.map(
-          ({ position, link, status, company }) => ({
+          ({ position, link, status, company, createdAt, jobId }) => ({
             position,
             link,
             status,
-            company
+            company,
+            createdAt,
+            jobId
           })
         )
         setJob(Jobs)
@@ -69,44 +52,63 @@ const Alumni = ({ location }) => {
     fetchUser()
   }, [])
 
-  let number = 1
   return (
     <div>
       <>
         {user ? (
           <div>
-            <Card className={classes.card}>
-              <CardMedia
-                image={user.user.imageUrl}
-                title="Profile"
-                className={classes.image}
-              />
-              <CardContent className={classes.content}>
-                <Typography variant="h5" color="secondary">
-                  {user.user.firstName} {user.user.lastName}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {user.user.program}
-                </Typography>
-                <Typography variant="body1">User Details</Typography>
-                <Typography variant="body2">
-                  Email: {user.user.email}
-                </Typography>
-                <Typography variant="body2">
-                  Website: {user.user.website ? user.user.website : 'None'}
-                </Typography>
+            <Grid container>
+              <Grid item sm={1} xs={12}></Grid>
+              <Grid item sm={10} xs={12}>
+                <Card className={classes.cardTwo}>
+                  <Grid container>
+                    <Grid item sm={3} xs={12}>
+                      <img
+                        src={user.user.imageUrl}
+                        alt="Profile"
+                        className={classes.image}
+                      />
+                    </Grid>
+                    <Grid item sm={9} xs={12}>
+                      <CardContent
+                        style={{
+                          padding: 25
+                        }}
+                      >
+                        <Typography variant="h5" color="secondary">
+                          {user.user.firstName} {user.user.lastName}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          {user.user.program}
+                        </Typography>
+                        <Typography variant="body2">
+                          {user.user.email}
+                        </Typography>
 
-                <Typography variant="body2">
-                  GitHub: {user.user.github ? user.user.github : 'None'}
-                </Typography>
-                <Typography variant="body2">
-                  LinkedIn: {user.user.linkedIn ? user.user.linkedIn : 'None'}
-                </Typography>
-              </CardContent>
-              <Typography variant="h2" className={classes.cohort}>
-                C{user.user.cohort}
-              </Typography>
-            </Card>
+                        {user.user.github && (
+                          <Link href={user.user.github} target="blank">
+                            <Chip icon={<GitHubIcon />} label="GitHub" />
+                          </Link>
+                        )}
+
+                        {user.user.website && (
+                          <Link href={user.user.website} target="blank">
+                            <Chip icon={<LanguageIcon />} label="Website" />
+                          </Link>
+                        )}
+
+                        {user.user.linkedIn && (
+                          <Link href={user.user.linkedIn} target="blank">
+                            <Chip icon={<LinkedInIcon />} label="LinkedIn" />
+                          </Link>
+                        )}
+                      </CardContent>
+                    </Grid>
+                  </Grid>
+                </Card>
+              </Grid>
+              <Grid item sm={1} xs={12}></Grid>
+            </Grid>
             <>
               <Typography variant="h4" className={classes.jobTitle}>
                 User's Job Postings
@@ -116,23 +118,53 @@ const Alumni = ({ location }) => {
                 job.map((job, index) => (
                   <div key={index}>
                     <Card className={classes.card}>
-                      <CardContent className={classes.content}>
-                        <Typography variant="h5" color="secondary">
-                          Company: {job.company}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          Position Title: {job.position}
-                        </Typography>
-                        <Typography variant="body2">
-                          Status: {job.status}
-                        </Typography>
-                        <Typography variant="body2">
-                          Link: {job.link}
-                        </Typography>
+                      <CardContent
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <Grid container alignItems="center">
+                          <Grid item sm={3} xs={12}>
+                            <Typography variant="h5" color="secondary">
+                              {job.company}
+                            </Typography>
+                          </Grid>
+                          <Grid item sm={3} xs={12}>
+                            <Typography variant="body2" color="textSecondary">
+                              {job.position}
+                            </Typography>
+                          </Grid>
+                          <Grid item sm={3} xs={12}>
+                            <Typography variant="body2">
+                              {job.status}
+                            </Typography>
+                          </Grid>
+                          <Grid item sm={1} xs={12}>
+                            <Link href={job.link} target="blank">
+                              Job Link
+                            </Link>
+                          </Grid>
+                          <Grid
+                            item
+                            sm={2}
+                            xs={12}
+                            container
+                            justify="flex-end"
+                          >
+                            <Typography
+                              variant="body2"
+                              className={classes.cohort}
+                            >
+                              {moment(job.createdAt)
+                                .startOf('minute')
+                                .fromNow()}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </CardContent>
-                      <Typography variant="h2" className={classes.cohort}>
-                        {number++}
-                      </Typography>
                     </Card>
                   </div>
                 ))

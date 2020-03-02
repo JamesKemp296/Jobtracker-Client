@@ -72,7 +72,7 @@ const App = () => {
                   component={Profile}
                   isAuth={state.isAuth}
                 />
-                <Route
+                <AuthRoute
                   path="/dashboard"
                   component={Dashboard}
                   isAuth={state.isAuth}
