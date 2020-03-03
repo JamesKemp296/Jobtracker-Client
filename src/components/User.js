@@ -14,11 +14,8 @@ const useStyles = makeStyles({
   },
   image: {
     width: '100%',
-    height: 140,
+    height: 120,
     objectFit: 'cover'
-  },
-  content: {
-    padding: 25
   }
 })
 
@@ -40,7 +37,7 @@ const User = ({ email, imageUrl, id, first, last, cohort, program }) => {
             <img src={imageUrl} alt="Profile" className={classes.image} />
           </Grid>
           <Grid item sm={9} xs={12}>
-            <CardContent className={classes.content}>
+            <CardContent>
               <Grid container>
                 <Grid item sm={9} xs={12}>
                   <Typography variant="h5" color="secondary">

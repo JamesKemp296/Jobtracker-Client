@@ -4,6 +4,7 @@ import './App.css'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles/'
 import UserContext from './contexts/UserContext'
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 // utils
 import reducer from './utils/reducer'
@@ -24,6 +25,8 @@ import Dashboard from './pages/Dashboard'
 import Alumni from './pages/Alumni'
 
 const theme = createMuiTheme(themeFile)
+
+axios.defaults.baseURL = `https://us-central1-jobtracker-4f14f.cloudfunctions.net/api`
 
 const App = () => {
   const initialState = useContext(UserContext)
