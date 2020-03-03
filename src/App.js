@@ -36,7 +36,7 @@ const App = () => {
   useEffect(
     _ => {
       const token = localStorage.FBIdToken
-      if (token !== 'Bearer undefined') {
+      if (token && token !== 'Bearer undefined') {
         const decodedToken = jwtDecode(token)
         if (decodedToken.exp * 1000 < Date.now()) {
           localStorage.removeItem('FBIdToken')
