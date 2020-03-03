@@ -73,22 +73,53 @@ const Alumni = ({ location }) => {
                         <Typography variant="body2">
                           {user.user.email}
                         </Typography>
+                        {user.user.resumeUrl && (
+                          <Link href={user.user.resumeUrl} target="_blank">
+                            <Typography variant="body2">
+                              Download Resume
+                            </Typography>
+                          </Link>
+                        )}
 
                         {user.user.github && (
-                          <Link href={user.user.github} target="blank">
-                            <Chip icon={<GitHubIcon />} label="GitHub" />
+                          <Link
+                            href={user.user.github}
+                            target="_blank"
+                            style={{ margin: '1%' }}
+                          >
+                            <Chip
+                              icon={<GitHubIcon />}
+                              label="GitHub"
+                              clickable
+                            />
                           </Link>
                         )}
 
                         {user.user.website && (
-                          <Link href={user.user.website} target="blank">
-                            <Chip icon={<LanguageIcon />} label="Website" />
+                          <Link
+                            href={user.user.website}
+                            target="_blank"
+                            style={{ margin: '1%' }}
+                          >
+                            <Chip
+                              icon={<LanguageIcon />}
+                              label="Website"
+                              clickable
+                            />
                           </Link>
                         )}
 
                         {user.user.linkedIn && (
-                          <Link href={user.user.linkedIn} target="blank">
-                            <Chip icon={<LinkedInIcon />} label="LinkedIn" />
+                          <Link
+                            href={user.user.linkedIn}
+                            target="blank"
+                            style={{ margin: '1%' }}
+                          >
+                            <Chip
+                              icon={<LinkedInIcon />}
+                              label="LinkedIn"
+                              clickable
+                            />
                           </Link>
                         )}
                       </CardContent>

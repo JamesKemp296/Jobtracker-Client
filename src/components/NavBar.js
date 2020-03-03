@@ -3,7 +3,6 @@ import { theme } from '../theme'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link, useHistory } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
-import Dashboard from '../pages/Dashboard'
 
 // Material UI
 import AppBar from '@material-ui/core/AppBar'
