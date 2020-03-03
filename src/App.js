@@ -36,7 +36,7 @@ const App = () => {
   useEffect(
     _ => {
       const token = localStorage.FBIdToken
-      if (token) {
+      if (token !== 'Bearer undefined') {
         const decodedToken = jwtDecode(token)
         if (decodedToken.exp * 1000 < Date.now()) {
           localStorage.removeItem('FBIdToken')
@@ -46,6 +46,7 @@ const App = () => {
         }
       } else {
         dispatch({ type: 'LOGOUT' })
+        localStorage.removeItem('FBIdToken')
       }
     },
     [initialState.isAuth]
