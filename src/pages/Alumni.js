@@ -4,17 +4,13 @@ import moment from 'moment'
 import useJobCardStyles from '../styles/JobCardStyles'
 
 // Material UI Stuff
-import Avatar from '@material-ui/core/Avatar'
 import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import LanguageIcon from '@material-ui/icons/Language'
 import Chip from '@material-ui/core/Chip'
 import GitHubIcon from '@material-ui/icons/GitHub'
-import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
@@ -23,8 +19,6 @@ const Alumni = ({ location }) => {
   const classes = useJobCardStyles()
   const [user, setUser] = useState(null)
   const [job, setJob] = useState([])
-  // This is for the fetching the user data
-  console.log(location.state.id)
 
   const fetchUser = () => {
     const id = location.state.id
@@ -32,7 +26,6 @@ const Alumni = ({ location }) => {
       .get(`/user/${id}`)
       .then(res => {
         setUser(res.data)
-        console.log(res.data)
         const Jobs = res.data.jobs.map(
           ({ position, link, status, company, createdAt, jobId }) => ({
             position,
@@ -60,7 +53,7 @@ const Alumni = ({ location }) => {
             <Grid container>
               <Grid item sm={1} xs={12}></Grid>
               <Grid item sm={10} xs={12}>
-                <Card className={classes.cardTwo}>
+                <Card className={classes.alumniCard}>
                   <Grid container>
                     <Grid item sm={3} xs={12}>
                       <img
@@ -70,11 +63,7 @@ const Alumni = ({ location }) => {
                       />
                     </Grid>
                     <Grid item sm={9} xs={12}>
-                      <CardContent
-                        style={{
-                          padding: 25
-                        }}
-                      >
+                      <CardContent>
                         <Typography variant="h5" color="secondary">
                           {user.user.firstName} {user.user.lastName}
                         </Typography>
