@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
 // components
 import Copyright from '../components/Copyright'
 import Program from '../components/Program'
 import Alert from '../components/Alert'
-
 // Material UI Stuff
 import Chip from '@material-ui/core/Chip'
 import DescriptionIcon from '@material-ui/icons/Description'
@@ -22,7 +20,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import ImageIcon from '@material-ui/icons/Image'
 import Tooltip from '@material-ui/core/Tooltip'
 import Snackbar from '@material-ui/core/Snackbar'
-
 const INITIAL_STATE = {
   cohort: '',
   program: '',
@@ -30,13 +27,11 @@ const INITIAL_STATE = {
   website: '',
   linkedIn: ''
 }
-
 const inputProps = {
   step: 1,
   min: 1,
   max: 99
 }
-
 const Profile = () => {
   const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
@@ -44,21 +39,16 @@ const Profile = () => {
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState({})
   const [open, setOpen] = React.useState(false)
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
     }
-
     setOpen(false)
   }
-
   const isInvalid = !formData.cohort || !formData.program || isloading
-
   const handleInputChange = field => e => {
     setFormData({ ...formData, [field]: e.target.value })
   }
-
   const fetchProfile = async () => {
     const token = await localStorage.FBIdToken
     await axios
@@ -81,11 +71,9 @@ const Profile = () => {
       })
       .catch(err => console.log('You fucked up'))
   }
-
   useEffect(() => {
     fetchProfile()
   }, [])
-
   const handleSubmit = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -96,7 +84,6 @@ const Profile = () => {
           Authorization: `${fireToken}`
         }
       })
-
       .then(res => {
         setOpen(true)
         setMessage(res.data)
@@ -109,9 +96,10 @@ const Profile = () => {
         setIsLoading(false)
       })
   }
-
   const handleImageChange = async event => {
+    setMessage('')
     const image = event.target.files[0]
+    if (!image) return
     const picData = new FormData()
     setIsLoading(true)
     const picToken = await localStorage.FBIdToken
@@ -129,13 +117,17 @@ const Profile = () => {
         setIsLoading(false)
       })
       .catch(err => {
-        console.log(err)
+        setOpen(true)
+        setIsLoading(false)
+        setErrors(err.response.data)
+        console.log(err.response.data)
       })
   }
   const handleFileChange = async event => {
+    setMessage('')
     const file = event.target.files[0]
+    if (!file) return
     const fileData = new FormData()
-
     const picToken = await localStorage.FBIdToken
     fileData.append('file', file, file.name)
     await axios
@@ -150,20 +142,20 @@ const Profile = () => {
         fetchProfile()
       })
       .catch(err => {
+        setOpen(true)
+        setIsLoading(false)
+        setErrors(err.response.data)
         console.log(err)
       })
   }
-
   const handleEditFile = () => {
     const fileInput = document.getElementById('fileInput')
     fileInput.click()
   }
-
   const handleEditPicture = () => {
     const fileInput = document.getElementById('imageInput')
     fileInput.click()
   }
-
   const useStyles = makeStyles(theme => ({
     form: {
       textAlign: 'center',
@@ -202,9 +194,7 @@ const Profile = () => {
       width: '40%'
     }
   }))
-
   const classes = useStyles()
-
   return (
     <>
       {user ? (
@@ -261,7 +251,6 @@ const Profile = () => {
                   <Chip label="View Resume" clickable />
                 </Link>
               )}
-
               <form noValidate onSubmit={handleSubmit} className={classes.form}>
                 <TextField
                   variant="outlined"
@@ -275,7 +264,6 @@ const Profile = () => {
                   value={formData.website}
                   onChange={handleInputChange('website')}
                 />
-
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -315,13 +303,11 @@ const Profile = () => {
                   value={formData.cohort}
                   onChange={handleInputChange('cohort')}
                 />
-
                 <Program
                   handleInputChange={handleInputChange}
                   program={formData.program}
                   class={formData.program}
                 />
-
                 <Button
                   type="submit"
                   fullWidth
@@ -342,9 +328,15 @@ const Profile = () => {
                   autoHideDuration={4000}
                   onClose={handleClose}
                 >
-                  <Alert onClose={handleClose} severity="success">
-                    {message.message}
-                  </Alert>
+                  {message.message ? (
+                    <Alert onClose={handleClose} severity="success">
+                      {message.message}
+                    </Alert>
+                  ) : (
+                    <Alert onClose={handleClose} severity="error">
+                      {errors.error}
+                    </Alert>
+                  )}
                 </Snackbar>
               </form>
             </div>
@@ -359,5 +351,4 @@ const Profile = () => {
     </>
   )
 }
-
 export default Profile

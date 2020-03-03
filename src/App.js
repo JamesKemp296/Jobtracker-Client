@@ -4,6 +4,7 @@ import './App.css'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles/'
 import UserContext from './contexts/UserContext'
 import jwtDecode from 'jwt-decode'
+import axios from 'axios'
 
 // utils
 import reducer from './utils/reducer'
@@ -25,6 +26,8 @@ import Alumni from './pages/Alumni'
 
 const theme = createMuiTheme(themeFile)
 
+axios.defaults.baseURL = `https://us-central1-jobtracker-4f14f.cloudfunctions.net/api`
+
 const App = () => {
   const initialState = useContext(UserContext)
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -33,7 +36,7 @@ const App = () => {
   useEffect(
     _ => {
       const token = localStorage.FBIdToken
-      if (token) {
+      if (token !== 'Bearer undefined') {
         const decodedToken = jwtDecode(token)
         if (decodedToken.exp * 1000 < Date.now()) {
           localStorage.removeItem('FBIdToken')
@@ -43,6 +46,7 @@ const App = () => {
         }
       } else {
         dispatch({ type: 'LOGOUT' })
+        localStorage.removeItem('FBIdToken')
       }
     },
     [initialState.isAuth]

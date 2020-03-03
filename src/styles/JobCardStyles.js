@@ -37,9 +37,7 @@ export default makeStyles({
   progress: {
     position: 'absolute'
   },
-
-  cardTwo: {
-    display: 'flex',
+  alumniCard: {
     marginBottom: 20,
     minHeight: '140px'
   },
