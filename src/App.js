@@ -24,14 +24,31 @@ import Admin from './pages/Admin'
 import Dashboard from './pages/Dashboard'
 import Alumni from './pages/Alumni'
 
+// context
+import { ProfileContext } from './contexts/ProfileContext'
+
 const theme = createMuiTheme(themeFile)
 
 axios.defaults.baseURL = `https://us-central1-jobtracker-4f14f.cloudfunctions.net/api`
 
 const App = () => {
   const initialState = useContext(UserContext)
+  const [user, setUser] = useContext(ProfileContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const fetchProfile = async token => {
+    await axios
+      .get(`/user`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        setUser(res.data)
+        console.log(res.data)
+      })
+      .catch(err => console.log({ err, user }))
+  }
   // keeps userContext authorized if signed in
   useEffect(
     _ => {
@@ -42,6 +59,7 @@ const App = () => {
           localStorage.removeItem('FBIdToken')
           dispatch({ type: 'LOGOUT' })
         } else {
+          fetchProfile(token)
           dispatch({ type: 'LOGIN' })
         }
       } else {
