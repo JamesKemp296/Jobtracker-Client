@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
 // components
@@ -16,6 +16,9 @@ import Card from '@material-ui/core/Card'
 import Grid from '@material-ui/core/Grid'
 import Snackbar from '@material-ui/core/Snackbar'
 
+// context
+import { ProfileContext } from '../contexts/ProfileContext'
+
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
 
@@ -31,8 +34,7 @@ const Alumni = ({ location }) => {
   const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
-  const [user, setUser] = useState(null)
-  const [job, setJob] = useState([])
+  const [user, setUser] = useContext(ProfileContext)
   const [message, setMessage] = useState({})
   const [open, setOpen] = React.useState(false)
 
@@ -40,11 +42,8 @@ const Alumni = ({ location }) => {
     if (reason === 'clickaway') {
       return
     }
-
     setOpen(false)
   }
-
-  // This is for the fetching the user data
 
   const isInvalid =
     !formData.company ||
@@ -64,17 +63,6 @@ const Alumni = ({ location }) => {
       .then(res => {
         setUser(res.data)
         console.log(res.data)
-        const Jobs = res.data.jobs.map(
-          ({ position, link, status, company, createdAt, jobId }) => ({
-            position,
-            link,
-            status,
-            company,
-            createdAt,
-            jobId
-          })
-        )
-        setJob(Jobs)
       })
       .catch(err => console.log('You fucked up'))
   }
@@ -107,10 +95,6 @@ const Alumni = ({ location }) => {
   const handleInputChange = field => e => {
     setFormData({ ...formData, [field]: e.target.value })
   }
-
-  useEffect(() => {
-    fetchUser()
-  }, [])
 
   return (
     <div>
@@ -177,10 +161,6 @@ const Alumni = ({ location }) => {
                   onChange={handleInputChange('link')}
                 />
               </Grid>
-              {/* to be replaced with snackbar */}
-              {/* <Typography variant="body2" className={classes.customError}>
-              {message.message}
-            </Typography> */}
               <Grid item sm={1} xs={12} className={classes.grid}>
                 <Button
                   fullWidth
@@ -211,8 +191,8 @@ const Alumni = ({ location }) => {
           </form>
         </CardContent>
       </Card>
-      {job.length >= 1 ? (
-        job.map((job, index) => (
+      {user.jobs.length >= 1 ? (
+        user.jobs.map((job, index) => (
           <JobCard
             key={job.jobId}
             formData={formData}

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
+
 // components
 import Copyright from '../components/Copyright'
 import Program from '../components/Program'
 import Alert from '../components/Alert'
+
 // Material UI Stuff
 import Chip from '@material-ui/core/Chip'
 import DescriptionIcon from '@material-ui/icons/Description'
@@ -19,25 +21,30 @@ import IconButton from '@material-ui/core/IconButton'
 import ImageIcon from '@material-ui/icons/Image'
 import Tooltip from '@material-ui/core/Tooltip'
 import Snackbar from '@material-ui/core/Snackbar'
-const INITIAL_STATE = {
-  cohort: '',
-  program: '',
-  github: '',
-  website: '',
-  linkedIn: ''
-}
+
+// context
+import { ProfileContext } from '../contexts/ProfileContext'
+
 const inputProps = {
   step: 1,
   min: 1,
   max: 99
 }
 const Profile = () => {
-  const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useContext(ProfileContext)
   const [message, setMessage] = useState({})
   const [open, setOpen] = React.useState(false)
+  const INITIAL_STATE = {
+    cohort: user.user.cohort || '',
+    program: user.user.program || '',
+    github: user.user.github || '',
+    website: user.user.website || '',
+    linkedIn: user.user.linkedIn || ''
+  }
+  const [formData, setFormData] = useState(INITIAL_STATE)
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -70,9 +77,6 @@ const Profile = () => {
       })
       .catch(err => console.log('You fucked up'))
   }
-  useEffect(() => {
-    fetchProfile()
-  }, [])
   const handleSubmit = async e => {
     e.preventDefault()
     setIsLoading(true)
