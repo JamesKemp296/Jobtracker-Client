@@ -32,6 +32,7 @@ const inputProps = {
 }
 const Profile = () => {
   const [isloading, setIsLoading] = useState(false)
+  const [isDetailLoading, setIsDetailLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [user, setUser] = useContext(ProfileContext)
   const [message, setMessage] = useState({})
@@ -79,7 +80,7 @@ const Profile = () => {
   }
   const handleSubmit = async e => {
     e.preventDefault()
-    setIsLoading(true)
+    setIsDetailLoading(true)
     const fireToken = await localStorage.FBIdToken
     await axios
       .post(`/user`, formData, {
@@ -91,12 +92,15 @@ const Profile = () => {
         setOpen(true)
         setMessage(res.data)
         fetchProfile()
-        setIsLoading(false)
+        setIsDetailLoading(false)
       })
       .catch(err => {
+        setIsDetailLoading(false)
         setErrors(err.response.data)
-        console.log(err)
-        setIsLoading(false)
+        const _TIMER = setTimeout(() => {
+          setErrors('')
+          clearTimeout(_TIMER)
+        }, 5000)
       })
   }
   const handleImageChange = async event => {
@@ -320,7 +324,7 @@ const Profile = () => {
                   disabled={isInvalid}
                 >
                   Update User Info
-                  {isloading && (
+                  {isDetailLoading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}
                 </Button>
