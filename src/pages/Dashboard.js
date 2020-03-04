@@ -191,7 +191,7 @@ const Alumni = ({ location }) => {
           </form>
         </CardContent>
       </Card>
-      {user.jobs.length >= 1 ? (
+      {user ? (
         user.jobs.map((job, index) => (
           <JobCard
             key={job.jobId}

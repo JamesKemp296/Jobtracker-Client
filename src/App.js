@@ -59,15 +59,15 @@ const App = () => {
           localStorage.removeItem('FBIdToken')
           dispatch({ type: 'LOGOUT' })
         } else {
-          fetchProfile(token)
           dispatch({ type: 'LOGIN' })
+          state.isAuth && fetchProfile(token)
         }
       } else {
         dispatch({ type: 'LOGOUT' })
         localStorage.removeItem('FBIdToken')
       }
     },
-    [initialState.isAuth]
+    [state.isAuth]
   )
 
   return (
