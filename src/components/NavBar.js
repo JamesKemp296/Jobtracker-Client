@@ -1,19 +1,22 @@
 import React, { useContext } from 'react'
 import { theme } from '../theme'
 import { makeStyles } from '@material-ui/core/styles'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 
-// Material UI
+// MUI stuff
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Button from '@material-ui/core/Button'
 
-const Navbar = ({ isAuth }) => (
-  <>{isAuth ? <NavbarAuth isAuth={isAuth} /> : <NavbarUnAuth />}</>
-)
+// components
+import Header from './Header'
+import HeaderMobile from './HeaderMobile'
 
-const NavbarAuth = () => {
+const Navbar = ({ isAuth }) => {
+  let history = useHistory()
+  const { dispatch } = useContext(UserContext)
+
   const colors = theme.colors
   const useStyles = makeStyles(theme => ({
     root: {
@@ -22,55 +25,22 @@ const NavbarAuth = () => {
   }))
   const classes = useStyles()
 
-  let history = useHistory()
-  const { dispatch } = useContext(UserContext)
+  const isSmallScreen = useMediaQuery('(max-width:600px)')
 
   const logout = () => {
     localStorage.removeItem('FBIdToken')
     dispatch({ type: 'LOGOUT' })
     history.push('/')
   }
+
   return (
     <AppBar className={classes.root}>
-      <Toolbar className="nav-container">
-        <Button color="inherit" component={Link} to="/">
-          Home
-        </Button>
-        <Button color="inherit" component={Link} to="/profile">
-          Profile
-        </Button>
-
-        <Button color="inherit" component={Link} to="/dashboard">
-          Dashboard
-        </Button>
-        <Button color="inherit" onClick={logout}>
-          Logout
-        </Button>
-      </Toolbar>
-    </AppBar>
-  )
-}
-
-const NavbarUnAuth = () => {
-  const colors = theme.colors
-  const useStyles = makeStyles(theme => ({
-    root: {
-      backgroundColor: colors.primary
-    }
-  }))
-  const classes = useStyles()
-  return (
-    <AppBar className={classes.root}>
-      <Toolbar className="nav-container">
-        <Button color="inherit" component={Link} to="/login">
-          Login
-        </Button>
-        <Button color="inherit" component={Link} to="/">
-          Home
-        </Button>
-        <Button color="inherit" component={Link} to="/signup">
-          SignUp
-        </Button>
+      <Toolbar>
+        {isSmallScreen ? (
+          <HeaderMobile logout={logout} isAuth={isAuth} />
+        ) : (
+          <Header logout={logout} isAuth={isAuth} />
+        )}
       </Toolbar>
     </AppBar>
   )
