@@ -37,11 +37,11 @@ const Profile = () => {
   const [message, setMessage] = useState({})
   const [open, setOpen] = React.useState(false)
   const INITIAL_STATE = {
-    cohort: user.user.cohort ? user.user.cohort : '',
-    program: user.user.program ? user.user.program : '',
-    github: user.user.github ? user.user.github : '',
-    website: user.user.website ? user.user.website : '',
-    linkedIn: user.user.linkedIn ? user.user.linkedIn : ''
+    cohort: user ? user.user.cohort : '',
+    program: user ? user.user.program : '',
+    github: user ? user.user.github : '',
+    website: user ? user.user.website : '',
+    linkedIn: user ? user.user.linkedIn : ''
   }
   const [formData, setFormData] = useState(INITIAL_STATE)
 
@@ -200,7 +200,7 @@ const Profile = () => {
   const classes = useStyles()
   return (
     <>
-      {user.user ? (
+      {user ? (
         <div>
           <Container component="main" maxWidth="xs">
             <div className={classes.paper}>
