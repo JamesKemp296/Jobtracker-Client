@@ -11,7 +11,7 @@ const Header = ({ isAuth, logout }) => (
     <Grid container justify="space-between">
       <Grid item xs={2}>
         <Button color="inherit" component={Link} to="/">
-          Home
+          Jobtracker
         </Button>
       </Grid>
       <Grid item xs={10} container justify="flex-end">
