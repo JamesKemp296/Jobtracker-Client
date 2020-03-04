@@ -107,7 +107,7 @@ const HeaderMobile = ({ isAuth, logout }) => {
                   <ListItem button component={Link} to="/profile">
                     <ListItemIcon>
                       <Avatar
-                        alt={user.user.firstName}
+                        alt={user.user.firstName + user.user.lastName}
                         src={user.user.imageUrl}
                       />
                     </ListItemIcon>
