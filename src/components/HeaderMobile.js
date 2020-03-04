@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 // MUI STUFF
@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
+import Box from '@material-ui/core/Box'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -19,10 +20,15 @@ import PersonIcon from '@material-ui/icons/Person'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import DashboardIcon from '@material-ui/icons/Dashboard'
+import Avatar from '@material-ui/core/Avatar'
+
+// context
+import { ProfileContext } from '../contexts/ProfileContext'
 
 const useStyles = makeStyles({
   navList: {
-    width: 250
+    width: 280,
+    height: '100%'
   },
   fullList: {
     width: 'auto'
@@ -34,11 +40,18 @@ const useStyles = makeStyles({
     '&:hover': {
       backgroundColor: 'red'
     }
+  },
+  spreadLogout: {
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   }
 })
 
 const HeaderMobile = ({ isAuth, logout }) => {
   const classes = useStyles()
+  const [user, setUser] = useContext(ProfileContext)
   const [isOpen, setIsOpen] = useState(false)
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -88,20 +101,40 @@ const HeaderMobile = ({ isAuth, logout }) => {
           onKeyDown={toggleDrawer}
         >
           {isAuth ? (
-            <>
-              <ListItem button component={Link} to="/profile">
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItem>
-              <ListItem button component={Link} to="/dashboard">
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItem>
-              <Divider />
+            <Box className={classes.spreadLogout}>
+              <Box>
+                {user && (
+                  <ListItem button component={Link} to="/profile">
+                    <ListItemIcon>
+                      <Avatar
+                        alt={user.user.firstName + user.user.lastName}
+                        src={user.user.imageUrl}
+                      />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography variant="body1">
+                        {user.user.firstName} {user.user.lastName}
+                      </Typography>
+
+                      <Typography variant="body2">{user.user.email}</Typography>
+                    </ListItemText>
+                  </ListItem>
+                )}
+                <Divider />
+                <ListItem button component={Link} to="/profile">
+                  <ListItemIcon>
+                    <AccountCircleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+                </ListItem>
+                <ListItem button component={Link} to="/dashboard">
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Dashboard" />
+                </ListItem>
+                <Divider />
+              </Box>
               <ListItem>
                 <Button
                   variant="contained"
@@ -113,7 +146,7 @@ const HeaderMobile = ({ isAuth, logout }) => {
                   <ExitToAppIcon />
                 </Button>
               </ListItem>
-            </>
+            </Box>
           ) : (
             <>
               <ListItem button component={Link} to="/login">
