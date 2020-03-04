@@ -29,8 +29,6 @@ const useStyles = makeStyles({
   },
   logout: {
     backgroundColor: 'red',
-    margin: '10px 0',
-    width: '90%',
     color: 'white',
     textTransform: 'uppercase',
     '&:hover': {
@@ -104,16 +102,17 @@ const HeaderMobile = ({ isAuth, logout }) => {
                 <ListItemText primary="Dashboard" />
               </ListItem>
               <Divider />
-              <Grid container justify="center">
+              <ListItem>
                 <Button
                   variant="contained"
+                  fullWidth
                   onClick={logout}
                   className={classes.logout}
                 >
                   Logout
                   <ExitToAppIcon />
                 </Button>
-              </Grid>
+              </ListItem>
             </>
           ) : (
             <>
