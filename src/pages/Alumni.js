@@ -11,9 +11,11 @@ import GitHubIcon from '@material-ui/icons/GitHub'
 import Link from '@material-ui/core/Link'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
 
 const Alumni = ({ location }) => {
   const classes = useJobCardStyles()
@@ -54,77 +56,70 @@ const Alumni = ({ location }) => {
               <Grid item sm={1} xs={12}></Grid>
               <Grid item sm={10} xs={12}>
                 <Card className={classes.alumniCard}>
-                  <Grid container>
-                    <Grid item sm={3} xs={12}>
-                      <img
-                        src={user.user.imageUrl}
-                        alt="Profile"
-                        className={classes.image}
-                      />
-                    </Grid>
-                    <Grid item sm={9} xs={12}>
-                      <CardContent>
-                        <Typography variant="h5" color="secondary">
-                          {user.user.firstName} {user.user.lastName}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          {user.user.program}
-                        </Typography>
-                        <Typography variant="body2">
-                          {user.user.email}
-                        </Typography>
-                        {user.user.resumeUrl && (
-                          <Link href={user.user.resumeUrl} target="_blank">
-                            <Typography variant="body2">
-                              Download Resume
-                            </Typography>
-                          </Link>
-                        )}
-
-                        {user.user.github && (
-                          <Link
-                            href={user.user.github}
-                            target="_blank"
-                            style={{ margin: '1%' }}
-                          >
-                            <Chip
-                              icon={<GitHubIcon />}
-                              label="GitHub"
-                              clickable
-                            />
-                          </Link>
-                        )}
-
-                        {user.user.website && (
-                          <Link
-                            href={user.user.website}
-                            target="_blank"
-                            style={{ margin: '1%' }}
-                          >
-                            <Chip
-                              icon={<LanguageIcon />}
-                              label="Website"
-                              clickable
-                            />
-                          </Link>
-                        )}
-
-                        {user.user.linkedIn && (
-                          <Link
-                            href={user.user.linkedIn}
-                            target="blank"
-                            style={{ margin: '1%' }}
-                          >
-                            <Chip
-                              icon={<LinkedInIcon />}
-                              label="LinkedIn"
-                              clickable
-                            />
-                          </Link>
-                        )}
-                      </CardContent>
-                    </Grid>
-                  </Grid>
+                  <CardMedia
+                    image={user.user.imageUrl}
+                    title={user.user.firstName + user.user.lastName}
+                    className={classes.image}
+                  />
+                  <CardContent className={classes.alumniCardContent}>
+                    <Box>
+                      <Typography variant="h5" color="secondary">
+                        {user.user.firstName} {user.user.lastName}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {user.user.program}
+                      </Typography>
+                      <Typography variant="body2">{user.user.email}</Typography>
+                      {user.user.resumeUrl && (
+                        <Link href={user.user.resumeUrl} target="_blank">
+                          <Typography variant="body2">
+                            Download Resume
+                          </Typography>
+                        </Link>
+                      )}
+                    </Box>
+                    <Box classname={classes.alumniChips}>
+                      {user.user.github && (
+                        <Link
+                          href={user.user.github}
+                          target="_blank"
+                          style={{ margin: '1%' }}
+                        >
+                          <Chip
+                            icon={<GitHubIcon />}
+                            label="GitHub"
+                            clickable
+                          />
+                        </Link>
+                      )}
+                      {user.user.website && (
+                        <Link
+                          href={user.user.website}
+                          target="_blank"
+                          style={{ margin: '1%' }}
+                        >
+                          <Chip
+                            icon={<LanguageIcon />}
+                            label="Website"
+                            clickable
+                          />
+                        </Link>
+                      )}
+                      {user.user.linkedIn && (
+                        <Link
+                          href={user.user.linkedIn}
+                          target="blank"
+                          style={{ margin: '1%' }}
+                        >
+                          <Chip
+                            icon={<LinkedInIcon />}
+                            label="LinkedIn"
+                            clickable
+                          />
+                        </Link>
+                      )}
+                    </Box>
+                  </CardContent>
                 </Card>
               </Grid>
               <Grid item sm={1} xs={12}></Grid>
