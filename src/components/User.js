@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
   image: {
     width: 150,
-    height: 120,
+    height: 140,
     objectFit: 'cover',
     '@media (max-width: 700px)': {
       width: '100%'

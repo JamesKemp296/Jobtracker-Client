@@ -62,7 +62,7 @@ const Alumni = ({ location }) => {
                     className={classes.image}
                   />
                   <CardContent className={classes.alumniCardContent}>
-                    <Box>
+                    <Box className={classes.alumniCardHeader}>
                       <Typography variant="h5" color="secondary">
                         {user.user.firstName} {user.user.lastName}
                       </Typography>
@@ -78,7 +78,7 @@ const Alumni = ({ location }) => {
                         </Link>
                       )}
                     </Box>
-                    <Box classname={classes.alumniChips}>
+                    <Box className={classes.alumniChips}>
                       {user.user.github && (
                         <Link
                           href={user.user.github}

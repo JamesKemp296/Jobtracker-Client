@@ -19,7 +19,16 @@ export default makeStyles({
   alumniCardContent: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column'
+    }
+  },
+  alumniCardHeader: {
+    '@media (max-width: 600px)': {
+      marginRight: 'auto',
+      marginBottom: 5
+    }
   },
   button: {
     border: '0',
