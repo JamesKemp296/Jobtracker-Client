@@ -116,7 +116,7 @@ const Alumni = ({ location }) => {
             color="primary"
             aria-label="add"
             onClick={handleModalOpen}
-            style={{ position: 'fixed', right: 20, bottom: 20, zIndex: 5 }}
+            style={{ position: 'fixed', right: 25, bottom: 25, zIndex: 5 }}
           >
             <AddIcon />
           </Fab>
@@ -138,6 +138,7 @@ const Alumni = ({ location }) => {
                 handleInputChange={handleInputChange}
                 isloading={isloading}
                 formData={formData}
+                isModalOpen={isModalOpen}
               />
             </Fade>
           </Modal>
