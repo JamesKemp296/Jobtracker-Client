@@ -17,6 +17,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import CloseIcon from '@material-ui/icons/Close'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
@@ -112,41 +116,59 @@ const JobCard = ({
     <>
       {!edit ? (
         <Card className={classes.card}>
-          <CardContent className={classes.content}>
-            <Grid container alignItems="center">
-              <Grid item sm={1} xs={12} style={{ display: 'flex' }}>
-                <button onClick={handleEditMode} className={classes.button}>
-                  <EditIcon />
-                </button>
-                <button onClick={deleteJob} className={classes.button}>
-                  <DeleteIcon />
-                </button>
-              </Grid>
-              <Grid item sm={3} xs={12}>
-                <Typography variant="h5" color="secondary">
-                  {company}
-                </Typography>
-              </Grid>
-              <Grid item sm={3} xs={12}>
-                <Typography variant="body2">{position}</Typography>
-              </Grid>
-              <Grid item sm={2} xs={12}>
-                <Typography variant="body2">{status}</Typography>
-              </Grid>
-              <Grid item sm={1} xs={12}>
-                <Link href={link} target="blank">
-                  Job Link
-                </Link>
-              </Grid>
-              <Grid item sm={2} xs={12}>
-                <Typography variant="body2" className={classes.timeStamp}>
-                  {moment(createdAt)
-                    .startOf('minute')
-                    .fromNow()}
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
+          <ExpansionPanel style={{ width: '100%' }}>
+            <ExpansionPanelSummary
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              style={{ padding: 0, width: '100%' }}
+            >
+              <CardContent className={classes.content}>
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item sm={2} xs={12} style={{ display: 'flex' }}>
+                    <button onClick={handleEditMode} className={classes.button}>
+                      <EditIcon />
+                    </button>
+                    <button onClick={deleteJob} className={classes.button}>
+                      <DeleteIcon />
+                    </button>
+                    <button className={classes.button}>
+                      <ExpandMoreIcon />
+                    </button>
+                  </Grid>
+                  <Grid item sm={2} xs={12}>
+                    <Typography variant="h5" color="secondary">
+                      {company}
+                    </Typography>
+                  </Grid>
+                  <Grid item sm={3} xs={12}>
+                    <Typography variant="body2">{position}</Typography>
+                  </Grid>
+                  <Grid item sm={2} xs={12}>
+                    <Typography variant="body2">{status}</Typography>
+                  </Grid>
+                  <Grid item sm={1} xs={12}>
+                    <Link href={link} target="blank">
+                      Job Link
+                    </Link>
+                  </Grid>
+                  <Grid item sm={2} xs={12}>
+                    <Typography variant="body2" className={classes.timeStamp}>
+                      {moment(createdAt)
+                        .startOf('minute')
+                        .fromNow()}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
+                eget.
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </Card>
       ) : (
         <Card className={classes.card}>
