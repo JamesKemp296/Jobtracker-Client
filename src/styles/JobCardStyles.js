@@ -83,5 +83,11 @@ export default makeStyles({
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '40%'
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '0 10px'
   }
 })
