@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
+import SelectFollowUp from '../components/selectFollowUp'
+import { Route } from 'react-router-dom'
 
 // components
 import SelectStatus from '../components/SelectStatus'
@@ -25,6 +27,11 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // JobCardStyles
 import useJobCardStyles from '../styles/JobCardStyles'
 
+const INITIAL_STATE = {
+  body: '',
+  type: ''
+}
+
 const JobCard = ({
   company,
   position,
@@ -36,10 +43,12 @@ const JobCard = ({
   setErrors,
   fetchUser,
   open,
-  setOpen
+  setOpen,
+  path,
+  history
 }) => {
   const classes = useJobCardStyles()
-
+  console.log(path)
   const [edit, setEdit] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [isloading, setIsLoading] = useState(false)
@@ -49,6 +58,12 @@ const JobCard = ({
     status,
     link
   })
+  const [followupData, setFollowupData] = useState(INITIAL_STATE)
+  const [follows, setFollows] = useState(null)
+
+  useEffect(() => {
+    fetchFollow()
+  }, [])
 
   const isInvalid =
     !jobData.company ||
@@ -59,6 +74,10 @@ const JobCard = ({
 
   const handleInputChange = field => e => {
     setJobData({ ...jobData, [field]: e.target.value })
+  }
+
+  const handleFollowChange = field => e => {
+    setFollowupData({ ...followupData, [field]: e.target.value })
   }
 
   const handleEditMode = () => {
@@ -116,17 +135,63 @@ const JobCard = ({
       })
   }
 
+  const handleFollowSubmit = async e => {
+    e.preventDefault()
+    setIsLoading(true)
+    const fireToken = await localStorage.FBIdToken
+    await axios
+      .post(`/jobs/${id}/followups`, followupData, {
+        headers: {
+          Authorization: `${fireToken}`
+        }
+      })
+
+      .then(res => {
+        setMessage(res.data)
+        setIsLoading(false)
+        setOpen(true)
+        fetchFollow()
+        setFollowupData(INITIAL_STATE)
+      })
+      .catch(err => {
+        console.log(err)
+        setIsLoading(false)
+      })
+  }
+
+  const fetchFollow = async () => {
+    const token = await localStorage.FBIdToken
+    await axios
+      .get(`/jobs/${id}/followups`, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
+      .then(res => {
+        console.log('fetch-follow', res.data.followup)
+        setFollows(res.data.followup)
+      })
+      .catch(err => console.log('You fucked up'))
+  }
+
   return (
     <>
       {!edit ? (
-        <Card className={classes.card}>
-          <ExpansionPanel expanded={expanded}>
-            <ExpansionPanelSummary
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              style={{ padding: 0, width: '100%' }}
-            >
-              <CardContent className={classes.content}>
+        <ExpansionPanel
+          expanded={expanded}
+          style={{
+            border: 'none',
+            background: 'transparent',
+            boxShadow: 'none'
+          }}
+        >
+          <Card className={classes.card}>
+            <CardContent className={classes.content}>
+              <ExpansionPanelSummary
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                style={{ padding: 0, width: '100%' }}
+              >
                 <Grid container alignItems="center" spacing={2}>
                   <Grid item sm={2} xs={12} style={{ display: 'flex' }}>
                     <button onClick={handleEditMode} className={classes.button}>
@@ -166,17 +231,96 @@ const JobCard = ({
                     </Typography>
                   </Grid>
                 </Grid>
+              </ExpansionPanelSummary>
+            </CardContent>
+          </Card>
+          <ExpansionPanelDetails
+            style={{ width: '100%', padding: 0, margin: 0 }}
+          >
+            <Card className={classes.card} style={{ width: '100%' }}>
+              <CardContent className={classes.content}>
+                <form className={classes.form} onSubmit={handleFollowSubmit}>
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    justify="space-between"
+                  >
+                    <Grid item sm={2} xs={12} className={classes.grid}>
+                      <Typography>Follow Up with {company}</Typography>
+                    </Grid>
+                    <Grid item sm={2} xs={12} className={classes.grid}>
+                      <SelectFollowUp
+                        type={followupData.type}
+                        handleFollowChange={handleFollowChange}
+                      />
+                    </Grid>
+                    <Grid item sm={7} xs={12} className={classes.grid}>
+                      <TextField
+                        className={classes.jobField}
+                        margin="normal"
+                        fullWidth
+                        id="body"
+                        type="body"
+                        label="Details"
+                        name="body"
+                        autoComplete="body"
+                        value={followupData.body}
+                        onChange={handleFollowChange('body')}
+                      />
+                    </Grid>
+                    <Grid item sm={1} xs={12} className={classes.grid}>
+                      <Button
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={isInvalid}
+                        className={classes.submit}
+                      >
+                        Submit
+                        {isloading && (
+                          <CircularProgress
+                            size={30}
+                            className={classes.progress}
+                          />
+                        )}
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
               </CardContent>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Card>
+            </Card>
+          </ExpansionPanelDetails>
+          <Typography variant="h5" style={{ textAlign: 'center' }}>
+            Follow Ups
+          </Typography>
+          {follows !== null &&
+            follows.map(item => (
+              <Card style={{ marginTop: 10 }} key={item.followUpId}>
+                <div
+                  style={{ padding: '5px 24px' }}
+                  className={classes.followup}
+                >
+                  <Grid container alignItems="center" justify="center">
+                    <Grid item sm={3} xs={12} className={classes.grid}>
+                      {item.type}
+                    </Grid>
+                    <Grid item sm={6} xs={12} className={classes.grid}>
+                      <p>{item.body}</p>
+                    </Grid>
+                    <Grid item sm={3} xs={12} className={classes.grid}>
+                      <Typography variant="body2" className={classes.timeStamp}>
+                        {moment(item.createdAt)
+                          .startOf('minute')
+                          .fromNow()}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Card>
+            ))}
+        </ExpansionPanel>
       ) : (
         <Card className={classes.card}>
           <CardContent className={classes.content}>

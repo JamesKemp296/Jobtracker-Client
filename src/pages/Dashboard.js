@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   status: ''
 }
 
-const Alumni = ({ location }) => {
+const Alumni = ({ match, history }) => {
   const classes = useJobCardStyles()
   const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
@@ -165,6 +165,8 @@ const Alumni = ({ location }) => {
             index={index}
             open={open}
             setOpen={setOpen}
+            path={match.path}
+            history={history}
           />
         ))
       ) : (
