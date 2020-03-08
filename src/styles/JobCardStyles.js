@@ -16,6 +16,20 @@ export default makeStyles({
     width: '100%',
     justifyContent: 'space-between'
   },
+  alumniCardContent: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column'
+    }
+  },
+  alumniCardHeader: {
+    '@media (max-width: 600px)': {
+      marginRight: 'auto',
+      marginBottom: 5
+    }
+  },
   button: {
     border: '0',
     background: 'transparent'
@@ -38,18 +52,29 @@ export default makeStyles({
     position: 'absolute'
   },
   alumniCard: {
+    display: 'flex',
     marginBottom: 20,
-    minHeight: '140px'
+    minHeight: '140px',
+    '@media (max-width: 600px)': {
+      flexDirection: 'column'
+    }
+  },
+  alumniChips: {
+    width: '100%',
+    display: 'flex',
+    marginLeft: 'auto'
   },
   image: {
-    width: '100%',
+    width: 150,
     height: 140,
-    objectFit: 'cover'
+    objectFit: 'cover',
+    '@media (max-width: 600px)': {
+      width: '100%'
+    }
   },
   marginBottom: {
     margin: '2% 0'
   },
-
   jobTitle: {
     textAlign: 'center'
   },
