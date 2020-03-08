@@ -136,7 +136,7 @@ const JobCard = ({
                     </button>
                   </Grid>
                   <Grid item sm={2} xs={12}>
-                    <Typography variant="h5" color="secondary">
+                    <Typography variant="body1" color="secondary">
                       {company}
                     </Typography>
                   </Grid>
@@ -148,7 +148,7 @@ const JobCard = ({
                   </Grid>
                   <Grid item sm={1} xs={12}>
                     <Link href={link} target="blank">
-                      Job Link
+                      Link
                     </Link>
                   </Grid>
                   <Grid item sm={2} xs={12}>
