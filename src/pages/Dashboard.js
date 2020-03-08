@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   status: ''
 }
 
-const Alumni = ({ location }) => {
+const Alumni = ({ match, history }) => {
   const classes = useJobCardStyles()
   const [formData, setFormData] = useState(INITIAL_STATE)
   const [isloading, setIsLoading] = useState(false)
@@ -37,7 +37,6 @@ const Alumni = ({ location }) => {
   const [user, setUser] = useContext(ProfileContext)
   const [message, setMessage] = useState({})
   const [open, setOpen] = React.useState(false)
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -212,6 +211,8 @@ const Alumni = ({ location }) => {
             index={index}
             open={open}
             setOpen={setOpen}
+            path={match.path}
+            history={history}
           />
         ))
       ) : (
