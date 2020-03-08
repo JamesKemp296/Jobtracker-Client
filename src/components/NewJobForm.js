@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid'
 import useJobCardStyles from '../styles/JobCardStyles'
 
 const NewJobForm = React.forwardRef(
-  ({ handleSubmit, formData, handleInputChange, isloading }) => {
+  ({ handleSubmit, formData, handleInputChange, isloading }, ref) => {
     const isInvalid =
       !formData.company ||
       !formData.position ||
