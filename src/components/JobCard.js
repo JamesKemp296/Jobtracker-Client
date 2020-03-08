@@ -50,6 +50,7 @@ const JobCard = ({
   const classes = useJobCardStyles()
   console.log(path)
   const [edit, setEdit] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const [isloading, setIsLoading] = useState(false)
   const [jobData, setJobData] = useState({
     company,
@@ -81,6 +82,9 @@ const JobCard = ({
 
   const handleEditMode = () => {
     setEdit(!edit)
+  }
+  const handlePanelExpand = () => {
+    setExpanded(!expanded)
   }
 
   const handleEditJob = async e => {
@@ -174,6 +178,7 @@ const JobCard = ({
     <>
       {!edit ? (
         <ExpansionPanel
+          expanded={expanded}
           style={{
             border: 'none',
             background: 'transparent',
@@ -195,7 +200,10 @@ const JobCard = ({
                     <button onClick={deleteJob} className={classes.button}>
                       <DeleteIcon />
                     </button>
-                    <button className={classes.button}>
+                    <button
+                      className={classes.button}
+                      onClick={handlePanelExpand}
+                    >
                       <ExpandMoreIcon />
                     </button>
                   </Grid>
