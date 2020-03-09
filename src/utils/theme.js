@@ -16,28 +16,28 @@ const theme = createMuiTheme({
   },
   typography: {
     h1: {
-      ...Rajdhani
+      ...OpenSans
     },
     h2: {
-      ...Rajdhani
+      ...OpenSans
     },
     h3: {
-      ...Rajdhani
+      ...OpenSans
     },
     h4: {
-      ...Rajdhani
+      ...OpenSans
     },
     h5: {
-      ...Rajdhani
+      ...OpenSans
     },
     h6: {
-      ...Rajdhani
+      ...OpenSans
     },
     body1: {
-      ...OpenSans
+      ...Rajdhani
     },
     body2: {
-      ...OpenSans
+      ...Rajdhani
     },
     subtitle1: {
       ...Rajdhani
