@@ -248,7 +248,8 @@ const JobCard = ({
                     justify="space-between"
                   >
                     <Grid item sm={2} xs={12} className={classes.grid}>
-                      <Typography>Follow Up with {company}</Typography>
+                      <Typography>Follow Up</Typography>
+                      <Typography>with {company}</Typography>
                     </Grid>
                     <Grid item sm={2} xs={12} className={classes.grid}>
                       <SelectFollowUp
@@ -323,7 +324,7 @@ const JobCard = ({
               </Card>
             ))
           ) : (
-            <p>No Job Followups with {company}</p>
+            <Typography variant="body2">No Followups with {company}</Typography>
           )}
         </ExpansionPanel>
       ) : (
