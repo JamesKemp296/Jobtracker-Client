@@ -234,6 +234,7 @@ const JobCard = ({
               </ExpansionPanelSummary>
             </CardContent>
           </Card>
+
           <ExpansionPanelDetails
             style={{ width: '100%', padding: 0, margin: 0 }}
           >
@@ -293,9 +294,10 @@ const JobCard = ({
             </Card>
           </ExpansionPanelDetails>
           <Typography variant="h5" style={{ textAlign: 'center' }}>
-            Follow Ups
+            Follow Ups with {company}
           </Typography>
-          {follows !== null &&
+
+          {follows !== null && follows.length >= 1 ? (
             follows.map(item => (
               <Card style={{ marginTop: 10 }} key={item.followUpId}>
                 <div
@@ -319,7 +321,10 @@ const JobCard = ({
                   </Grid>
                 </div>
               </Card>
-            ))}
+            ))
+          ) : (
+            <p>No Job Followups with {company}</p>
+          )}
         </ExpansionPanel>
       ) : (
         <Card className={classes.card}>
