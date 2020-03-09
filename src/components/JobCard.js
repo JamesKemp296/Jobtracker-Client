@@ -234,6 +234,7 @@ const JobCard = ({
               </ExpansionPanelSummary>
             </CardContent>
           </Card>
+
           <ExpansionPanelDetails
             style={{ width: '100%', padding: 0, margin: 0 }}
           >
@@ -247,7 +248,8 @@ const JobCard = ({
                     justify="space-between"
                   >
                     <Grid item sm={2} xs={12} className={classes.grid}>
-                      <Typography>Follow Up with {company}</Typography>
+                      <Typography>Follow Up</Typography>
+                      <Typography>with {company}</Typography>
                     </Grid>
                     <Grid item sm={2} xs={12} className={classes.grid}>
                       <SelectFollowUp
@@ -293,9 +295,10 @@ const JobCard = ({
             </Card>
           </ExpansionPanelDetails>
           <Typography variant="h5" style={{ textAlign: 'center' }}>
-            Follow Ups
+            Follow Ups with {company}
           </Typography>
-          {follows !== null &&
+
+          {follows !== null && follows.length >= 1 ? (
             follows.map(item => (
               <Card style={{ marginTop: 10 }} key={item.followUpId}>
                 <div
@@ -319,7 +322,10 @@ const JobCard = ({
                   </Grid>
                 </div>
               </Card>
-            ))}
+            ))
+          ) : (
+            <Typography variant="body2">No Followups with {company}</Typography>
+          )}
         </ExpansionPanel>
       ) : (
         <Card className={classes.card}>
