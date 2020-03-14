@@ -5,6 +5,10 @@ const OpenSans = {
   fontFamily: 'Open Sans, sans-serif',
   fontWeight: 400
 }
+
+const DolceVita = {
+  fontFamily: 'Dolce Vita Light'
+}
 const BLACK = '#000000'
 const DARK_GREY = '#373733'
 const theme = createMuiTheme({
@@ -16,31 +20,31 @@ const theme = createMuiTheme({
   },
   typography: {
     h1: {
-      ...OpenSans
+      ...DolceVita
     },
     h2: {
-      ...OpenSans
+      ...DolceVita
     },
     h3: {
-      ...OpenSans
+      ...DolceVita
     },
     h4: {
-      ...OpenSans
+      ...DolceVita
     },
     h5: {
-      ...OpenSans
+      ...DolceVita
     },
     h6: {
-      ...OpenSans
+      ...DolceVita
     },
     body1: {
-      ...Rajdhani
+      ...DolceVita
     },
     body2: {
-      ...Rajdhani
+      ...DolceVita
     },
     subtitle1: {
-      ...Rajdhani
+      ...DolceVita
     }
   }
 })
