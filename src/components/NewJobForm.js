@@ -94,6 +94,7 @@ const NewJobForm = React.forwardRef(
                   color="primary"
                   disabled={isInvalid}
                   className={classes.submit}
+                  disableElevation
                 >
                   Submit
                   {isloading && (

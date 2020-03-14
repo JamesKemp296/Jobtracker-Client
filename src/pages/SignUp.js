@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import Logo from '../images/WyncodeLogo.png'
@@ -8,15 +8,14 @@ import UserContext from '../contexts/UserContext'
 
 // MUI stuff
 import Container from '@material-ui/core/Container'
+import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 // Components
-import Copyright from '../components/Copyright'
 import Program from '../components/Program'
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +37,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    position: 'relative'
+    position: 'relative',
+    borderRadius: 0,
+    boxShadow: 'none',
+    fontWeight: 'bold',
+    color: 'white'
   },
   progress: {
     position: 'absolute'
@@ -215,18 +218,18 @@ const SignUp = ({ history }) => {
             color="primary"
             className={classes.submit}
             disabled={isInvalid}
+            disableElevation
           >
             Login
             {isloading && (
               <CircularProgress size={30} className={classes.progress} />
             )}
           </Button>
-          <Link to="/login">Already have an account? Login</Link>
+          <Link component={NavLink} to="/login">
+            Already have an account? Login
+          </Link>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   )
 }

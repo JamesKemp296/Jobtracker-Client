@@ -46,7 +46,11 @@ export default makeStyles({
     padding: 0
   },
   submit: {
-    position: 'relative'
+    position: 'relative',
+    borderRadius: 0,
+    boxShadow: 'none',
+    fontWeight: 'bold',
+    color: 'white'
   },
   progress: {
     position: 'absolute'

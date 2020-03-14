@@ -281,6 +281,7 @@ const JobCard = ({
                         color="primary"
                         disabled={isInvalidFollow}
                         className={classes.submit}
+                        disableElevation
                       >
                         Submit
                         {isloading && (
@@ -417,6 +418,7 @@ const JobCard = ({
                     color="primary"
                     className={classes.submit}
                     disabled={isInvalid}
+                    disableElevation
                   >
                     UPDATE
                     {isloading && (

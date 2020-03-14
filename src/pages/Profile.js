@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
 // components
-import Copyright from '../components/Copyright'
 import Program from '../components/Program'
 import Alert from '../components/Alert'
 
@@ -16,7 +15,6 @@ import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import ImageIcon from '@material-ui/icons/Image'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -204,7 +202,8 @@ const Profile = () => {
     submit: {
       borderRadius: 0,
       boxShadow: 'none',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: 'white'
     }
   }))
   const classes = useStyles()
@@ -328,8 +327,9 @@ const Profile = () => {
                   fullWidth
                   className={classes.submit}
                   disabled={isInvalid}
+                  disableElevation
                 >
-                  <Typography variant="h6">Update Info</Typography>
+                  Update Info
                   {isDetailLoading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}
@@ -353,9 +353,6 @@ const Profile = () => {
                 </Snackbar>
               </form>
             </div>
-            <Box mt={2}>
-              <Copyright />
-            </Box>
           </Container>
         </div>
       ) : (
