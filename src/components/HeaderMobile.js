@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../images/WyncodeLogoWordmark.png'
 
 // MUI STUFF
 import { makeStyles } from '@material-ui/styles'
@@ -25,7 +26,7 @@ import Avatar from '@material-ui/core/Avatar'
 // context
 import { ProfileContext } from '../contexts/ProfileContext'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   navList: {
     width: 280,
     height: '100%'
@@ -34,8 +35,11 @@ const useStyles = makeStyles({
     width: 'auto'
   },
   logout: {
-    backgroundColor: 'red',
+    backgroundColor: theme.secondary,
+    fontWeight: 'bold',
     color: 'white',
+    borderRadius: 0,
+    boxShadow: 'none',
     textTransform: 'uppercase',
     '&:hover': {
       backgroundColor: 'red'
@@ -46,8 +50,11 @@ const useStyles = makeStyles({
     height: '100%',
     flexDirection: 'column',
     justifyContent: 'space-between'
+  },
+  navImage: {
+    width: '100%'
   }
-})
+}))
 
 const HeaderMobile = ({ isAuth, logout }) => {
   const classes = useStyles()
@@ -103,6 +110,14 @@ const HeaderMobile = ({ isAuth, logout }) => {
           {isAuth ? (
             <Box className={classes.spreadLogout}>
               <Box>
+                <ListItem button component={Link} to="/">
+                  <img
+                    src={Logo}
+                    alt="site-title"
+                    className={classes.navImage}
+                  />
+                </ListItem>
+                <Divider />
                 {user && (
                   <ListItem button component={Link} to="/profile">
                     <ListItemIcon>

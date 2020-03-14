@@ -199,6 +199,12 @@ const Profile = () => {
       marginLeft: 'auto',
       marginRight: 'auto',
       width: '40%'
+    },
+    submit: {
+      borderRadius: 0,
+      boxShadow: 'none',
+      fontWeight: 'bold',
+      padding: '10px 20px'
     }
   }))
   const classes = useStyles()
@@ -315,19 +321,23 @@ const Profile = () => {
                   program={formData.program}
                   class={formData.program}
                 />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  disabled={isInvalid}
-                >
-                  Update User Info
-                  {isDetailLoading && (
-                    <CircularProgress size={30} className={classes.progress} />
-                  )}
-                </Button>
+                <Box fullWidth>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    disabled={isInvalid}
+                  >
+                    <Typography variant="h6">Update Info</Typography>
+                    {isDetailLoading && (
+                      <CircularProgress
+                        size={30}
+                        className={classes.progress}
+                      />
+                    )}
+                  </Button>
+                </Box>
                 <Snackbar
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                   style={{ top: 70 }}
