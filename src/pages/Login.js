@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import UserContext from '../contexts/UserContext'
+import Logo from '../images/WyncodeLogo.png'
 
 // MUI stuff
 import Container from '@material-ui/core/Container'
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   logo: {
-    width: 80,
+    width: 170,
     margin: '20px auto 20px auto'
   },
   paper: {
@@ -88,12 +89,8 @@ const Login = ({ history }) => {
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <img
-          src="https://leo.nyc3.digitaloceanspaces.com/jobtracker/favicon.ico"
-          alt="wyncode logo"
-          className={classes.logo}
-        />
-        <Typography variant="h3" className={classes.pageTitle}>
+        <img src={Logo} alt="wyncode logo" className={classes.logo} />
+        <Typography variant="h4" className={classes.pageTitle}>
           Login
         </Typography>
         <form noValidate onSubmit={handleSubmit} className={classes.form}>

@@ -200,6 +200,11 @@ const Profile = () => {
       marginLeft: 'auto',
       marginRight: 'auto',
       width: '40%'
+    },
+    submit: {
+      borderRadius: 0,
+      boxShadow: 'none',
+      fontWeight: 'bold'
     }
   }))
   const classes = useStyles()
@@ -318,13 +323,13 @@ const Profile = () => {
                 />
                 <Button
                   type="submit"
-                  fullWidth
                   variant="contained"
                   color="primary"
+                  fullWidth
                   className={classes.submit}
                   disabled={isInvalid}
                 >
-                  Update User Info
+                  <Typography variant="h6">Update Info</Typography>
                   {isDetailLoading && (
                     <CircularProgress size={30} className={classes.progress} />
                   )}

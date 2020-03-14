@@ -20,7 +20,8 @@ const Navbar = ({ isAuth }) => {
   const colors = theme.colors
   const useStyles = makeStyles(theme => ({
     root: {
-      backgroundColor: colors.primary
+      backgroundColor: 'white',
+      color: 'black'
     }
   }))
   const classes = useStyles()
