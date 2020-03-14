@@ -9,6 +9,11 @@ const OpenSans = {
 const DolceVita = {
   fontFamily: 'Dolce Vita Light'
 }
+
+const Raleway = {
+  fontFamily: 'Raleway'
+}
+
 const BLACK = '#000000'
 const DARK_GREY = '#373733'
 const theme = createMuiTheme({
@@ -16,35 +21,45 @@ const theme = createMuiTheme({
     text: {
       primary: BLACK,
       secondary: DARK_GREY
+    },
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#60C1E5'
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: '#E10098'
+      // dark: will be calculated from palette.secondary.main,
     }
   },
   typography: {
     h1: {
-      ...DolceVita
+      ...Raleway
     },
     h2: {
-      ...DolceVita
+      ...Raleway
     },
     h3: {
-      ...DolceVita
+      ...Raleway
     },
     h4: {
-      ...DolceVita
+      ...Raleway
     },
     h5: {
-      ...DolceVita
+      ...Raleway
     },
     h6: {
-      ...DolceVita
+      ...Raleway
     },
     body1: {
-      ...DolceVita
+      ...Raleway
     },
     body2: {
-      ...DolceVita
+      ...Raleway
     },
     subtitle1: {
-      ...DolceVita
+      ...Raleway
     }
   }
 })

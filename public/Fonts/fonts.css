@@ -4,3 +4,10 @@
   font-style: normal;
   src: url(../FontPackage/DolceVitaLight.ttf);
 }
+
+@font-face {
+  font-family: 'Raleway';
+  font-weight: normal;
+  font-style: normal;
+  src: url(../FontPackage/Raleway-Regular.ttf);
+}
