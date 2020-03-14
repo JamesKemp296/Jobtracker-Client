@@ -5,6 +5,15 @@ const OpenSans = {
   fontFamily: 'Open Sans, sans-serif',
   fontWeight: 400
 }
+
+const DolceVita = {
+  fontFamily: 'Dolce Vita Light'
+}
+
+const Raleway = {
+  fontFamily: 'Raleway'
+}
+
 const BLACK = '#000000'
 const DARK_GREY = '#373733'
 const theme = createMuiTheme({
@@ -12,35 +21,45 @@ const theme = createMuiTheme({
     text: {
       primary: BLACK,
       secondary: DARK_GREY
+    },
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#60C1E5'
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: '#E10098'
+      // dark: will be calculated from palette.secondary.main,
     }
   },
   typography: {
     h1: {
-      ...OpenSans
+      ...Raleway
     },
     h2: {
-      ...OpenSans
+      ...Raleway
     },
     h3: {
-      ...OpenSans
+      ...Raleway
     },
     h4: {
-      ...OpenSans
+      ...Raleway
     },
     h5: {
-      ...OpenSans
+      ...Raleway
     },
     h6: {
-      ...OpenSans
+      ...Raleway
     },
     body1: {
-      ...Rajdhani
+      ...Raleway
     },
     body2: {
-      ...Rajdhani
+      ...Raleway
     },
     subtitle1: {
-      ...Rajdhani
+      ...Raleway
     }
   }
 })

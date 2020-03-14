@@ -1,6 +1,6 @@
 export const theme = {
   colors: {
-    primary: '#202020',
+    primary: '#60C1E5',
     // blue
     secondary: 'purple',
     // pink; should be a gradient will review later

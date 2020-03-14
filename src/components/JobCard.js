@@ -72,6 +72,8 @@ const JobCard = ({
     !jobData.position ||
     isloading
 
+  const isInvalidFollow = !followupData.type || !followupData.body || isloading
+
   const handleInputChange = field => e => {
     setJobData({ ...jobData, [field]: e.target.value })
   }
@@ -248,8 +250,8 @@ const JobCard = ({
                     justify="space-between"
                   >
                     <Grid item sm={2} xs={12} className={classes.grid}>
+                      <Typography>New </Typography>
                       <Typography>Follow Up</Typography>
-                      <Typography>with {company}</Typography>
                     </Grid>
                     <Grid item sm={2} xs={12} className={classes.grid}>
                       <SelectFollowUp
@@ -277,7 +279,7 @@ const JobCard = ({
                         type="submit"
                         variant="contained"
                         color="primary"
-                        disabled={isInvalid}
+                        disabled={isInvalidFollow}
                         className={classes.submit}
                       >
                         Submit
@@ -294,23 +296,29 @@ const JobCard = ({
               </CardContent>
             </Card>
           </ExpansionPanelDetails>
-          <Typography variant="h5" style={{ textAlign: 'center' }}>
+          <Typography
+            variant="h5"
+            style={{ textAlign: 'center', marginBottom: '2%' }}
+          >
             Follow Ups with {company}
           </Typography>
 
           {follows !== null && follows.length >= 1 ? (
             follows.map(item => (
-              <Card style={{ marginTop: 10 }} key={item.followUpId}>
+              <Card
+                style={{ marginTop: 10, paddingTop: 5, paddingBottom: 5 }}
+                key={item.followUpId}
+              >
                 <div
                   style={{ padding: '5px 24px' }}
                   className={classes.followup}
                 >
                   <Grid container alignItems="center" justify="center">
                     <Grid item sm={3} xs={12} className={classes.grid}>
-                      {item.type}
+                      <Typography variant="body1">{item.type}</Typography>
                     </Grid>
                     <Grid item sm={6} xs={12} className={classes.grid}>
-                      <p>{item.body}</p>
+                      <Typography variant="body1">{item.body}</Typography>
                     </Grid>
                     <Grid item sm={3} xs={12} className={classes.grid}>
                       <Typography variant="body2" className={classes.timeStamp}>
@@ -324,7 +332,15 @@ const JobCard = ({
               </Card>
             ))
           ) : (
-            <Typography variant="body2">No Followups with {company}</Typography>
+            <Typography
+              variant="body2"
+              style={{
+                textAlign: 'center',
+                marginBottom: '2%'
+              }}
+            >
+              No Followups with {company}
+            </Typography>
           )}
         </ExpansionPanel>
       ) : (
