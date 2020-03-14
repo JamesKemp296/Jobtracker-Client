@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     width: 'auto'
   },
   logout: {
-    backgroundColor: theme.secondary,
     fontWeight: 'bold',
     color: 'white',
     borderRadius: 0,
@@ -153,6 +152,7 @@ const HeaderMobile = ({ isAuth, logout }) => {
               <ListItem>
                 <Button
                   variant="contained"
+                  color="secondary"
                   fullWidth
                   onClick={logout}
                   className={classes.logout}

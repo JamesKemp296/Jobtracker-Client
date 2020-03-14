@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import UserContext from '../contexts/UserContext'
@@ -10,11 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
-import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-// Components
-import Copyright from '../components/Copyright'
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -35,7 +32,11 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    position: 'relative'
+    position: 'relative',
+    borderRadius: 0,
+    boxShadow: 'none',
+    fontWeight: 'bold',
+    color: 'white'
   },
   progress: {
     position: 'absolute'
@@ -135,20 +136,18 @@ const Login = ({ history }) => {
             color="primary"
             className={classes.submit}
             disabled={isInvalid}
+            disableElevation
           >
             Login
             {isloading && (
               <CircularProgress size={30} className={classes.progress} />
             )}
           </Button>
-          <Link href="signup" variant="body2">
+          <Link component={NavLink} to="/signup" variant="body2">
             Don't have an account? Sign Up
           </Link>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   )
 }
