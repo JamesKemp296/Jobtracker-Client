@@ -173,6 +173,7 @@ const Profile = () => {
     logo: {
       width: 180,
       height: 180,
+      borderRadius: '100px',
       objectFit: 'cover',
       margin: '20px auto 20px auto'
     },
