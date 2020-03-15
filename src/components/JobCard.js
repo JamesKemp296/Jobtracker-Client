@@ -79,7 +79,7 @@ const JobCard = ({
   }
   const handlePanelExpand = () => {
     setExpanded(!expanded)
-    fetchFollow()
+    if (!follows) fetchFollow()
   }
 
   const handleEditJob = async e => {
@@ -157,8 +157,8 @@ const JobCard = ({
   }
 
   const fetchFollow = async () => {
-    if (follows !== null) return
     const token = await localStorage.FBIdToken
+    setIsFollowLoading(true)
     await axios
       .get(`/jobs/${id}/followups`, {
         headers: {
@@ -167,6 +167,7 @@ const JobCard = ({
       })
       .then(res => {
         console.log('fetch-follow', res.data.followup)
+        setIsFollowLoading(false)
         setFollows(res.data.followup)
       })
       .catch(err => console.log('You fucked up'))
