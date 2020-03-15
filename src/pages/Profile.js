@@ -182,10 +182,7 @@ const Profile = () => {
       alignItems: 'center',
       position: 'relative'
     },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-      position: 'relative'
-    },
+
     progress: {
       position: 'absolute'
     },
@@ -203,6 +200,7 @@ const Profile = () => {
       borderRadius: 0,
       boxShadow: 'none',
       fontWeight: 'bold',
+
       color: 'white'
     },
     successAlert: {
@@ -210,6 +208,7 @@ const Profile = () => {
     },
     warningAlert: {
       background: '#E10098'
+
     }
   }))
   const classes = useStyles()
