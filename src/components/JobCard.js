@@ -207,7 +207,7 @@ const JobCard = ({
                     </button>
                   </Grid>
                   <Grid item sm={2} xs={12}>
-                    <Typography variant="body1" color="secondary">
+                    <Typography variant="body1" color="primary">
                       {company}
                     </Typography>
                   </Grid>

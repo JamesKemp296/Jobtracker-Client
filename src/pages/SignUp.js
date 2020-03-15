@@ -106,7 +106,7 @@ const SignUp = ({ history }) => {
 
         dispatch({ type: 'LOGIN' })
         setIsLoading(false)
-        history.push('/')
+        history.push('/dashboard')
       })
       .catch(err => {
         setErrors(err.response.data)
