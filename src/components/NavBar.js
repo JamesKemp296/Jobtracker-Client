@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { theme } from '../theme'
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
@@ -17,7 +16,6 @@ const Navbar = ({ isAuth }) => {
   let history = useHistory()
   const { dispatch } = useContext(UserContext)
 
-  const colors = theme.colors
   const useStyles = makeStyles(theme => ({
     root: {
       backgroundColor: 'white',

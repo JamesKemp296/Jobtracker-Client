@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import SelectFollowUp from '../components/selectFollowUp'
-import { Route } from 'react-router-dom'
 
 // components
 import SelectStatus from '../components/SelectStatus'

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import moment from 'moment'
+
 import useJobCardStyles from '../styles/JobCardStyles'
+import AlumniJobCard from '../components/AlumniJobCard'
 
 // Material UI Stuff
+
 import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import LanguageIcon from '@material-ui/icons/Language'
 import Chip from '@material-ui/core/Chip'
@@ -131,57 +133,15 @@ const Alumni = ({ location }) => {
               <br />
               {job.length >= 1 ? (
                 job.map((job, index) => (
-                  <div key={index}>
-                    <Card className={classes.card}>
-                      <CardContent
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          width: '100%',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        <Grid container alignItems="center">
-                          <Grid item sm={3} xs={12}>
-                            <Typography variant="h5" color="secondary">
-                              {job.company}
-                            </Typography>
-                          </Grid>
-                          <Grid item sm={3} xs={12}>
-                            <Typography variant="body2" color="textSecondary">
-                              {job.position}
-                            </Typography>
-                          </Grid>
-                          <Grid item sm={3} xs={12}>
-                            <Typography variant="body2">
-                              {job.status}
-                            </Typography>
-                          </Grid>
-                          <Grid item sm={1} xs={12}>
-                            <Link href={job.link} target="blank">
-                              Job Link
-                            </Link>
-                          </Grid>
-                          <Grid
-                            item
-                            sm={2}
-                            xs={12}
-                            container
-                            justify="flex-end"
-                          >
-                            <Typography
-                              variant="body2"
-                              className={classes.cohort}
-                            >
-                              {moment(job.createdAt)
-                                .startOf('minute')
-                                .fromNow()}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <AlumniJobCard
+                    createdAt={job.createdAt}
+                    link={job.link}
+                    status={job.status}
+                    position={job.position}
+                    company={job.company}
+                    id={job.jobId}
+                    key={job.jobId}
+                  />
                 ))
               ) : (
                 <Typography variant="h5">No User Job Postings</Typography>
