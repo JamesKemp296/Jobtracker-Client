@@ -181,7 +181,11 @@ const Alumni = ({ match, history }) => {
         autoHideDuration={4000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success">
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          className={classes.successAlert}
+        >
           {message.message}
         </Alert>
       </Snackbar>

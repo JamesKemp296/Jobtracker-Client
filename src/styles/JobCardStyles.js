@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
-export default makeStyles({
+export default makeStyles(theme => ({
   card: {
     display: 'flex',
     marginBottom: 10,
@@ -93,5 +93,11 @@ export default makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     padding: '0 10px'
+  },
+  successAlert: {
+    background: '#60C1E5'
+  },
+  warningAlert: {
+    background: '#E10098'
   }
-})
+}))

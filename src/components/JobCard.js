@@ -39,18 +39,15 @@ const JobCard = ({
   createdAt,
   id,
   setMessage,
-  setErrors,
   fetchUser,
-  open,
   setOpen,
-  path,
-  history
+  path
 }) => {
   const classes = useJobCardStyles()
-  console.log(path)
   const [edit, setEdit] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [isloading, setIsLoading] = useState(false)
+  const [isFollowloading, setIsFollowLoading] = useState(false)
   const [jobData, setJobData] = useState({
     company,
     position,
@@ -59,10 +56,6 @@ const JobCard = ({
   })
   const [followupData, setFollowupData] = useState(INITIAL_STATE)
   const [follows, setFollows] = useState(null)
-
-  useEffect(() => {
-    fetchFollow()
-  }, [])
 
   const isInvalid =
     !jobData.company ||
@@ -86,6 +79,7 @@ const JobCard = ({
   }
   const handlePanelExpand = () => {
     setExpanded(!expanded)
+    fetchFollow()
   }
 
   const handleEditJob = async e => {
@@ -139,6 +133,7 @@ const JobCard = ({
   const handleFollowSubmit = async e => {
     e.preventDefault()
     setIsLoading(true)
+    setIsFollowLoading(true)
     const fireToken = await localStorage.FBIdToken
     await axios
       .post(`/jobs/${id}/followups`, followupData, {
@@ -150,6 +145,7 @@ const JobCard = ({
       .then(res => {
         setMessage(res.data)
         setIsLoading(false)
+        setIsFollowLoading(false)
         setOpen(true)
         fetchFollow()
         setFollowupData(INITIAL_STATE)
@@ -161,6 +157,7 @@ const JobCard = ({
   }
 
   const fetchFollow = async () => {
+    if (follows !== null) return
     const token = await localStorage.FBIdToken
     await axios
       .get(`/jobs/${id}/followups`, {
@@ -235,7 +232,6 @@ const JobCard = ({
               </ExpansionPanelSummary>
             </CardContent>
           </Card>
-
           <ExpansionPanelDetails
             style={{ width: '100%', padding: 0, margin: 0 }}
           >
@@ -303,7 +299,7 @@ const JobCard = ({
             Follow Ups with {company}
           </Typography>
 
-          {follows !== null && follows.length >= 1 ? (
+          {follows !== null && !isFollowloading && follows.length > 0 ? (
             follows.map(item => (
               <Card
                 style={{ marginTop: 10, paddingTop: 5, paddingBottom: 5 }}
@@ -331,7 +327,7 @@ const JobCard = ({
                 </div>
               </Card>
             ))
-          ) : (
+          ) : follows !== null && !isFollowloading && follows.length === 0 ? (
             <Typography
               variant="body2"
               style={{
@@ -341,6 +337,10 @@ const JobCard = ({
             >
               No Followups with {company}
             </Typography>
+          ) : (
+            <Grid item container justify="center">
+              <CircularProgress size={50} />
+            </Grid>
           )}
         </ExpansionPanel>
       ) : (

@@ -200,9 +200,15 @@ const Profile = () => {
       borderRadius: 0,
       boxShadow: 'none',
       fontWeight: 'bold',
-      color: 'white',
-      margin: theme.spacing(3, 0, 2),
-      position: 'relative'
+
+      color: 'white'
+    },
+    successAlert: {
+      background: '#60C1E5'
+    },
+    warningAlert: {
+      background: '#E10098'
+
     }
   }))
   const classes = useStyles()
@@ -341,11 +347,19 @@ const Profile = () => {
                   onClose={handleClose}
                 >
                   {message.message ? (
-                    <Alert onClose={handleClose} severity="success">
+                    <Alert
+                      onClose={handleClose}
+                      severity="success"
+                      className={classes.successAlert}
+                    >
                       {message.message}
                     </Alert>
                   ) : (
-                    <Alert onClose={handleClose} severity="error">
+                    <Alert
+                      onClose={handleClose}
+                      severity="error"
+                      className={classes.warningAlert}
+                    >
                       {errors.error}
                     </Alert>
                   )}
