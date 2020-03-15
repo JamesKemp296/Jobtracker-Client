@@ -88,67 +88,69 @@ const Login = ({ history }) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <img src={Logo} alt="wyncode logo" className={classes.logo} />
-        <Typography variant="h4" className={classes.pageTitle}>
-          Login
-        </Typography>
-        <form noValidate onSubmit={handleSubmit} className={classes.form}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="email"
-            type="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
-            autoFocus={true}
-            helperText={errors.email}
-            error={errors.email ? true : false}
-            value={formData.email}
-            onChange={handleInputChange('email')}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="password"
-            type="password"
-            label="Password"
-            name="password"
-            autoComplete="password"
-            helperText={errors.password}
-            error={errors.password ? true : false}
-            value={formData.password}
-            onChange={handleInputChange('password')}
-          />
-          {errors.general && (
-            <Typography variant="body2" className={classes.customError}>
-              {errors.general}
-            </Typography>
-          )}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={isInvalid}
-            disableElevation
-          >
+    <div style={{ marginTop: 70 }}>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <img src={Logo} alt="wyncode logo" className={classes.logo} />
+          <Typography variant="h4" className={classes.pageTitle}>
             Login
-            {isloading && (
-              <CircularProgress size={30} className={classes.progress} />
+          </Typography>
+          <form noValidate onSubmit={handleSubmit} className={classes.form}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="email"
+              type="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus={true}
+              helperText={errors.email}
+              error={errors.email ? true : false}
+              value={formData.email}
+              onChange={handleInputChange('email')}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="password"
+              type="password"
+              label="Password"
+              name="password"
+              autoComplete="password"
+              helperText={errors.password}
+              error={errors.password ? true : false}
+              value={formData.password}
+              onChange={handleInputChange('password')}
+            />
+            {errors.general && (
+              <Typography variant="body2" className={classes.customError}>
+                {errors.general}
+              </Typography>
             )}
-          </Button>
-          <Link component={NavLink} to="/signup" variant="body2">
-            Don't have an account? Sign Up
-          </Link>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={isInvalid}
+              disableElevation
+            >
+              Login
+              {isloading && (
+                <CircularProgress size={30} className={classes.progress} />
+              )}
+            </Button>
+            <Link component={NavLink} to="/signup" variant="body2">
+              Don't have an account? Sign Up
+            </Link>
+          </form>
+        </div>
+      </Container>
+    </div>
   )
 }
 

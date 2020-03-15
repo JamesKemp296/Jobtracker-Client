@@ -50,7 +50,7 @@ const Alumni = ({ location }) => {
   }, [])
 
   return (
-    <div>
+    <div style={{ marginTop: 70 }}>
       <>
         {user ? (
           <div>

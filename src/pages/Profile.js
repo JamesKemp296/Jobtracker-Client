@@ -208,12 +208,11 @@ const Profile = () => {
     },
     warningAlert: {
       background: '#E10098'
-
     }
   }))
   const classes = useStyles()
   return (
-    <>
+    <div style={{ marginTop: 70 }}>
       {user ? (
         <div>
           <Container component="main" maxWidth="xs">
@@ -371,7 +370,7 @@ const Profile = () => {
       ) : (
         <CircularProgress size={60} className={classes.progressThree} />
       )}
-    </>
+    </div>
   )
 }
 export default Profile

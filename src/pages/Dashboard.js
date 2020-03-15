@@ -102,7 +102,7 @@ const Alumni = ({ match, history }) => {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: 70 }}>
       {!isSmallScreen ? (
         <NewJobForm
           handleSubmit={handleSubmit}
