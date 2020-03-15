@@ -58,7 +58,7 @@ const User = ({ email, imageUrl, id, first, last, cohort, program }) => {
               </Typography>
               <Typography variant="body1">{email}</Typography>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={3} container justify="flex-end">
               <Typography variant="h3" className={classes.cohort}>
                 C{cohort}
               </Typography>

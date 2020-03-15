@@ -118,7 +118,7 @@ const Alumni = ({ match, history }) => {
             onClick={handleModalOpen}
             style={{ position: 'fixed', right: 25, bottom: 25, zIndex: 5 }}
           >
-            <AddIcon />
+            <AddIcon style={{ color: 'white' }} />
           </Fab>
           <Modal
             aria-labelledby="transition-modal-title"
