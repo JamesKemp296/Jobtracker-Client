@@ -103,6 +103,7 @@ const Profile = () => {
   }
   const handleImageChange = async event => {
     setMessage('')
+    setErrors('')
     const image = event.target.files[0]
     if (!image) return
     const picData = new FormData()
@@ -130,6 +131,7 @@ const Profile = () => {
   }
   const handleFileChange = async event => {
     setMessage('')
+    setErrors('')
     const file = event.target.files[0]
     if (!file) return
     const fileData = new FormData()
@@ -342,7 +344,7 @@ const Profile = () => {
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                   style={{ top: 70 }}
                   open={open}
-                  autoHideDuration={4000}
+                  // autoHideDuration={4000}
                   onClose={handleClose}
                 >
                   {message.message ? (
@@ -353,13 +355,21 @@ const Profile = () => {
                     >
                       {message.message}
                     </Alert>
-                  ) : (
+                  ) : errors.error ? (
                     <Alert
                       onClose={handleClose}
                       severity="error"
                       className={classes.warningAlert}
                     >
                       {errors.error}
+                    </Alert>
+                  ) : (
+                    <Alert
+                      onClose={handleClose}
+                      severity="success"
+                      className={classes.successAlert}
+                    >
+                      "Updating Image"
                     </Alert>
                   )}
                 </Snackbar>
