@@ -50,7 +50,7 @@ const Profile = () => {
     }
     setOpen(false)
   }
-  const isInvalid = !formData.cohort || !formData.program || isloading
+  const isInvalid = !formData.cohort || !formData.program || isDetailLoading
   const handleInputChange = field => e => {
     setFormData({ ...formData, [field]: e.target.value })
   }
@@ -364,13 +364,7 @@ const Profile = () => {
                       {errors.error}
                     </Alert>
                   ) : (
-                    <Alert
-                      onClose={handleClose}
-                      severity="success"
-                      className={classes.successAlert}
-                    >
-                      "Updating Image"
-                    </Alert>
+                    <div></div>
                   )}
                 </Snackbar>
               </form>
