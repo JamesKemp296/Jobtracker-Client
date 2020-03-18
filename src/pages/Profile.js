@@ -334,6 +334,7 @@ const Profile = () => {
                   className={classes.submit}
                   disabled={isInvalid}
                   disableElevation
+                  style={{ marginBottom: '20px' }}
                 >
                   Update Info
                   {isDetailLoading && (
