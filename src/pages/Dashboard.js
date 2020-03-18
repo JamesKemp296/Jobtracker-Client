@@ -10,6 +10,7 @@ import Alert from '../components/Alert'
 
 // Material UI Stuff
 import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
@@ -102,7 +103,7 @@ const Alumni = ({ match, history }) => {
   }
 
   return (
-    <div style={{ marginTop: 70 }}>
+    <Container maxwidth="md" className={classes.dashboardContainer}>
       {!isSmallScreen ? (
         <NewJobForm
           handleSubmit={handleSubmit}
@@ -189,7 +190,7 @@ const Alumni = ({ match, history }) => {
           {message.message}
         </Alert>
       </Snackbar>
-    </div>
+    </Container>
   )
 }
 

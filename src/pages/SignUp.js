@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
-import Logo from '../images/WyncodeLogo.png'
+import Logo from '../components/SVGComponents/Logo'
 
 import UserContext from '../contexts/UserContext'
 
@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
     position: 'relative'
   },
-  logo: {
-    width: 170,
-    margin: '20px auto 20px auto'
+  image: {
+    margin: '20px auto 20px auto',
+    marginBottom: 14
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -119,7 +119,9 @@ const SignUp = ({ history }) => {
     <div style={{ marginTop: 70 }}>
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
-          <img src={Logo} alt="wyncode logo" className={classes.logo} />
+          <div className={classes.image}>
+            <Logo svgHeight={170} height={'100%'} width={'100%'} />
+          </div>
           <Typography variant="h4" className={classes.pageTitle}>
             Sign Up
           </Typography>

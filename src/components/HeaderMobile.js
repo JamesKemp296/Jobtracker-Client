@@ -22,6 +22,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import Avatar from '@material-ui/core/Avatar'
+import ThinLogo from './SVGComponents/ThinLogo'
 
 // context
 import { ProfileContext } from '../contexts/ProfileContext'
@@ -110,11 +111,7 @@ const HeaderMobile = ({ isAuth, logout }) => {
             <Box className={classes.spreadLogout}>
               <Box>
                 <ListItem button component={Link} to="/">
-                  <img
-                    src={Logo}
-                    alt="site-title"
-                    className={classes.navImage}
-                  />
+                  <ThinLogo svgHeight={70} />
                 </ListItem>
                 <Divider />
                 {user && (

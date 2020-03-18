@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 
 const Header = ({ isAuth, logout }) => (
-  <Container maxWidth="lg">
+  <Container maxWidth="lg" style={{ padding: 10 }}>
     <Grid container justify="space-between">
       <Grid item xs={2}>
         <Button color="inherit" component={Link} to="/">

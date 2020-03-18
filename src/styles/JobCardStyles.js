@@ -99,5 +99,9 @@ export default makeStyles(theme => ({
   },
   warningAlert: {
     background: '#E10098'
+  },
+  dashboardContainer: {
+    marginTop: 70,
+    padding: 10
   }
 }))
