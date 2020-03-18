@@ -7,11 +7,11 @@ const OpenSans = {
 }
 
 const DolceVita = {
-  fontFamily: 'Dolce Vita Light'
+  fontFamily: 'Dolce Vita Light, sans-serif'
 }
 
 const Raleway = {
-  fontFamily: 'Raleway'
+  fontFamily: 'Raleway, sans-serif'
 }
 
 const BLACK = '#000000'
