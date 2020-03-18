@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import SelectFollowUp from '../components/selectFollowUp'
@@ -207,7 +207,7 @@ const JobCard = ({
                     </button>
                   </Grid>
                   <Grid item sm={2} xs={12}>
-                    <Typography variant="body1" color="secondary">
+                    <Typography variant="body1" color="primary">
                       {company}
                     </Typography>
                   </Grid>

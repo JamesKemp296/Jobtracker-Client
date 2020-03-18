@@ -50,7 +50,7 @@ const Alumni = ({ location }) => {
   }, [])
 
   return (
-    <div>
+    <div style={{ marginTop: 70 }}>
       <>
         {user ? (
           <div>
@@ -144,7 +144,9 @@ const Alumni = ({ location }) => {
                   />
                 ))
               ) : (
-                <Typography variant="h5">No User Job Postings</Typography>
+                <Typography variant="h5" style={{ textAlign: 'center' }}>
+                  No User Job Postings
+                </Typography>
               )}
             </>
           </div>

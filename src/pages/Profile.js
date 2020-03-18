@@ -50,7 +50,7 @@ const Profile = () => {
     }
     setOpen(false)
   }
-  const isInvalid = !formData.cohort || !formData.program || isloading
+  const isInvalid = !formData.cohort || !formData.program || isDetailLoading
   const handleInputChange = field => e => {
     setFormData({ ...formData, [field]: e.target.value })
   }
@@ -103,6 +103,7 @@ const Profile = () => {
   }
   const handleImageChange = async event => {
     setMessage('')
+    setErrors('')
     const image = event.target.files[0]
     if (!image) return
     const picData = new FormData()
@@ -130,6 +131,7 @@ const Profile = () => {
   }
   const handleFileChange = async event => {
     setMessage('')
+    setErrors('')
     const file = event.target.files[0]
     if (!file) return
     const fileData = new FormData()
@@ -208,12 +210,11 @@ const Profile = () => {
     },
     warningAlert: {
       background: '#E10098'
-
     }
   }))
   const classes = useStyles()
   return (
-    <>
+    <div style={{ marginTop: 70 }}>
       {user ? (
         <div>
           <Container component="main" maxWidth="xs">
@@ -333,6 +334,7 @@ const Profile = () => {
                   className={classes.submit}
                   disabled={isInvalid}
                   disableElevation
+                  style={{ marginBottom: '20px' }}
                 >
                   Update Info
                   {isDetailLoading && (
@@ -343,7 +345,7 @@ const Profile = () => {
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                   style={{ top: 70 }}
                   open={open}
-                  autoHideDuration={4000}
+                  // autoHideDuration={4000}
                   onClose={handleClose}
                 >
                   {message.message ? (
@@ -354,7 +356,7 @@ const Profile = () => {
                     >
                       {message.message}
                     </Alert>
-                  ) : (
+                  ) : errors.error ? (
                     <Alert
                       onClose={handleClose}
                       severity="error"
@@ -362,6 +364,8 @@ const Profile = () => {
                     >
                       {errors.error}
                     </Alert>
+                  ) : (
+                    <div></div>
                   )}
                 </Snackbar>
               </form>
@@ -371,7 +375,7 @@ const Profile = () => {
       ) : (
         <CircularProgress size={60} className={classes.progressThree} />
       )}
-    </>
+    </div>
   )
 }
 export default Profile

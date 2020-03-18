@@ -106,7 +106,7 @@ const SignUp = ({ history }) => {
 
         dispatch({ type: 'LOGIN' })
         setIsLoading(false)
-        history.push('/')
+        history.push('/dashboard')
       })
       .catch(err => {
         setErrors(err.response.data)
@@ -116,121 +116,123 @@ const SignUp = ({ history }) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <img src={Logo} alt="wyncode logo" className={classes.logo} />
-        <Typography variant="h4" className={classes.pageTitle}>
-          Sign Up
-        </Typography>
-        <form noValidate onSubmit={handleSubmit} className={classes.form}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={formData.firstName}
-                onChange={handleInputChange('firstName')}
-              />
+    <div style={{ marginTop: 70 }}>
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <img src={Logo} alt="wyncode logo" className={classes.logo} />
+          <Typography variant="h4" className={classes.pageTitle}>
+            Sign Up
+          </Typography>
+          <form noValidate onSubmit={handleSubmit} className={classes.form}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={formData.firstName}
+                  onChange={handleInputChange('firstName')}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  value={formData.lastName}
+                  onChange={handleInputChange('lastName')}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                value={formData.lastName}
-                onChange={handleInputChange('lastName')}
-              />
-            </Grid>
-          </Grid>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="email"
-            type="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
-            helperText={errors.email}
-            error={errors.email ? true : false}
-            value={formData.email}
-            onChange={handleInputChange('email')}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="cohort"
-            type="number"
-            inputProps={inputProps}
-            label="Cohort #"
-            name="cohort"
-            autoComplete="cohort"
-            helperText={errors.cohort}
-            error={errors.cohort ? true : false}
-            value={formData.cohort}
-            onChange={handleInputChange('cohort')}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="password"
-            type="password"
-            label="Password"
-            name="password"
-            autoComplete="password"
-            helperText={errors.password}
-            error={errors.password ? true : false}
-            value={formData.password}
-            onChange={handleInputChange('password')}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="confirmPassword"
-            type="password"
-            label="Confirm Password"
-            name="confirmPassword"
-            autoComplete="confirmPassword"
-            helperText={errors.confirmPassword}
-            error={errors.confirmPassword ? true : false}
-            value={formData.confirmPassword}
-            onChange={handleInputChange('confirmPassword')}
-          />
-          <Program
-            handleInputChange={handleInputChange}
-            class={formData.program}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={isInvalid}
-            disableElevation
-          >
-            Login
-            {isloading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-          <Link component={NavLink} to="/login">
-            Already have an account? Login
-          </Link>
-        </form>
-      </div>
-    </Container>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="email"
+              type="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              helperText={errors.email}
+              error={errors.email ? true : false}
+              value={formData.email}
+              onChange={handleInputChange('email')}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="cohort"
+              type="number"
+              inputProps={inputProps}
+              label="Cohort #"
+              name="cohort"
+              autoComplete="cohort"
+              helperText={errors.cohort}
+              error={errors.cohort ? true : false}
+              value={formData.cohort}
+              onChange={handleInputChange('cohort')}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="password"
+              type="password"
+              label="Password"
+              name="password"
+              autoComplete="password"
+              helperText={errors.password}
+              error={errors.password ? true : false}
+              value={formData.password}
+              onChange={handleInputChange('password')}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              name="confirmPassword"
+              autoComplete="confirmPassword"
+              helperText={errors.confirmPassword}
+              error={errors.confirmPassword ? true : false}
+              value={formData.confirmPassword}
+              onChange={handleInputChange('confirmPassword')}
+            />
+            <Program
+              handleInputChange={handleInputChange}
+              class={formData.program}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={isInvalid}
+              disableElevation
+            >
+              Login
+              {isloading && (
+                <CircularProgress size={30} className={classes.progress} />
+              )}
+            </Button>
+            <Link component={NavLink} to="/login">
+              Already have an account? Login
+            </Link>
+          </form>
+        </div>
+      </Container>
+    </div>
   )
 }
 
