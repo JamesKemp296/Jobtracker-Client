@@ -101,9 +101,7 @@ const SignUp = ({ history }) => {
     axios
       .post('/signup', formData)
       .then(res => {
-        console.log(res.data.token)
         localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-
         dispatch({ type: 'LOGIN' })
         setIsLoading(false)
         history.push('/dashboard')

@@ -45,9 +45,8 @@ const App = () => {
       })
       .then(res => {
         setUser(res.data)
-        console.log(res.data)
       })
-      .catch(err => console.log({ err, user }))
+      .catch(err => console.log({ err }))
   }
   // keeps userContext authorized if signed in
   useEffect(

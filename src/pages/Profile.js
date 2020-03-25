@@ -64,7 +64,6 @@ const Profile = () => {
       })
       .then(res => {
         setUser(res.data)
-        console.log(res.data)
         setFormData({
           ...formData,
           github: res.data.user.github ? res.data.user.github : '',
@@ -74,7 +73,7 @@ const Profile = () => {
           program: res.data.user.program
         })
       })
-      .catch(err => console.log('You fucked up'))
+      .catch(err => console.log(err))
   }
   const handleSubmit = async e => {
     e.preventDefault()

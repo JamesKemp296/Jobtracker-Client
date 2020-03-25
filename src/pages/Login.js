@@ -74,7 +74,6 @@ const Login = ({ history }) => {
     axios
       .post('/login', formData)
       .then(res => {
-        console.log(res.data.token)
         localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
         dispatch({ type: 'LOGIN' })
         setIsLoading(false)

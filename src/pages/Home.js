@@ -5,28 +5,28 @@ import Wynbase from '../images/Wynbase.jpg'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles(theme => ({
   background: {
     backgroundImage: `url(${Wynbase})`,
     position: 'relative',
     objectFit: 'cover',
-
     backgroundPosition: '30% -250px',
     width: '100%',
     height: 500,
     paddingTop: 70,
     margin: 0,
     backgroundRepeat: 'no-repeat',
-
-    // Ipad screen
     '@media (max-width: 1024px)': {
       backgroundPosition: '50% -300px'
+    },
+    '@media (max-width: 700px)': {
+      height: 400
+    },
+    '@media (max-width: 600px)': {
+      height: 300
     }
   },
   overlay: {
@@ -35,52 +35,52 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-
     margin: 0,
-    backgroundColor: 'rgba(127, 185, 201, 0.8)'
+    backgroundColor: 'rgba(127, 185, 201, 0.8)',
+    display: 'grid',
+    placeItems: 'center'
   },
   overlay_text: {
-    padding: '200px 0',
-    // fontWeight: 'bold',
-    postion: 'absolute',
+    paddingTop: '70px',
     color: '#FFFFFF',
     textAlign: 'center'
   },
   card: {
     minHeight: 250
+  },
+  heroFont: {
+    fontSize: 60,
+    fontFamily: 'Raleway Bold',
+    '@media (max-width: 1024px)': {
+      fontSize: 50
+    },
+    '@media (max-width: 700px)': {
+      fontSize: 30
+    },
+    '@media (max-width: 600px)': {
+      fontSize: 22
+    }
   }
 }))
 
 const Home = () => {
   const classes = useStyles()
-  const isSmallScreen = useMediaQuery('(max-width: 1024px)')
   return (
     <>
       <Box>
         <Box className={classes.background}>
           <div className={classes.overlay}>
-            {isSmallScreen ? (
-              <Container className={classes.overlay_text}>
-                <Typography variant="h5" style={{ fontFamily: 'Raleway Bold' }}>
-                  Welcome to JobTracker
-                </Typography>
-                <Typography variant="h5" style={{ fontFamily: 'Raleway Bold' }}>
-                  Tracking Your Job Applications
-                </Typography>
-                <Typography variant="h5" style={{ fontFamily: 'Raleway Bold' }}>
-                  Made Easy
-                </Typography>
-              </Container>
-            ) : (
-              <Container className={classes.overlay_text}>
-                <Typography variant="h2" style={{ fontFamily: 'Raleway Bold' }}>
-                  Welcome to JobTracker
-                </Typography>
-                <Typography variant="h2" style={{ fontFamily: 'Raleway Bold' }}>
-                  Tracking Your Job Applications Made Easy
-                </Typography>
-              </Container>
-            )}
+            <Container className={classes.overlay_text}>
+              <Typography variant="h5" className={classes.heroFont}>
+                Welcome to JobTracker
+              </Typography>
+              <Typography variant="h5" className={classes.heroFont}>
+                Tracking Your Job Applications
+              </Typography>
+              <Typography variant="h5" className={classes.heroFont}>
+                Made Easy
+              </Typography>
+            </Container>
           </div>
         </Box>
         <Box>
@@ -91,7 +91,6 @@ const Home = () => {
               style={{
                 textAlign: 'center',
                 marginTop: '2%'
-                // lineHeight: '250px'
               }}
               alignItems="center"
             >

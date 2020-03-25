@@ -67,9 +67,8 @@ const Alumni = ({ match, history }) => {
       })
       .then(res => {
         setUser(res.data)
-        console.log(res.data)
       })
-      .catch(err => console.log('You fucked up'))
+      .catch(err => console.log(err))
   }
 
   const handleSubmit = async e => {

@@ -35,7 +35,6 @@ const AlumniJobCard = ({ link, position, createdAt, company, status, id }) => {
         }
       })
       .then(res => {
-        console.log('fetch-follow', res.data.followup)
         setFollows(res.data.followup)
       })
       .catch(err => console.log(err))

@@ -102,11 +102,6 @@ const JobCard = ({
         setOpen(true)
       })
       .catch(err => {
-        // setErrors(err.response.data)
-        // const timer = setTimeout(() => {
-        //   setErrors('')
-        //   clearTimeout(timer)
-        // }, 2500)
         console.log(err)
         setIsLoading(false)
       })
@@ -166,11 +161,10 @@ const JobCard = ({
         }
       })
       .then(res => {
-        console.log('fetch-follow', res.data.followup)
         setIsFollowLoading(false)
         setFollows(res.data.followup)
       })
-      .catch(err => console.log('You fucked up'))
+      .catch(err => console.log(err))
   }
 
   return (

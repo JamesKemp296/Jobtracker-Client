@@ -42,7 +42,7 @@ const Alumni = ({ location }) => {
         )
         setJob(Jobs)
       })
-      .catch(err => console.log('You fucked up'))
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
