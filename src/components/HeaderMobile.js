@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../images/WyncodeLogoWordmark.png'
 
 // MUI STUFF
 import { makeStyles } from '@material-ui/styles'
@@ -23,10 +22,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import Avatar from '@material-ui/core/Avatar'
 import ThinLogo from './SVGComponents/ThinLogo'
-
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 // context
 import { ProfileContext } from '../contexts/ProfileContext'
-
 const useStyles = makeStyles(theme => ({
   navList: {
     width: 280,
@@ -55,14 +53,11 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   }
 }))
-
 const HeaderMobile = ({ isAuth, logout }) => {
   const classes = useStyles()
   const [user, setUser] = useContext(ProfileContext)
   const [isOpen, setIsOpen] = useState(false)
-
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
-
   const toggleDrawer = event => {
     if (
       event &&
@@ -73,7 +68,6 @@ const HeaderMobile = ({ isAuth, logout }) => {
     }
     setIsOpen(!isOpen)
   }
-
   return (
     <>
       <Grid container justify="space-between" alignItems="center">
@@ -126,7 +120,6 @@ const HeaderMobile = ({ isAuth, logout }) => {
                       <Typography variant="body1">
                         {user.user.firstName} {user.user.lastName}
                       </Typography>
-
                       <Typography variant="body2">{user.user.email}</Typography>
                     </ListItemText>
                   </ListItem>
@@ -144,6 +137,14 @@ const HeaderMobile = ({ isAuth, logout }) => {
                   </ListItemIcon>
                   <ListItemText primary="Dashboard" />
                 </ListItem>
+                {user && user.user.admin && (
+                  <ListItem button component={Link} to="/admin">
+                    <ListItemIcon>
+                      <SupervisorAccountIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Admin" />
+                  </ListItem>
+                )}
                 <Divider />
               </Box>
               <ListItem>
@@ -180,5 +181,4 @@ const HeaderMobile = ({ isAuth, logout }) => {
     </>
   )
 }
-
 export default HeaderMobile

@@ -1,5 +1,10 @@
 import React, { useEffect, useContext, useReducer } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
 import './App.css'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles/'
 import UserContext from './contexts/UserContext'
@@ -29,25 +34,21 @@ import { ProfileContext } from './contexts/ProfileContext'
 
 const theme = createMuiTheme(themeFile)
 
-axios.defaults.baseURL = `https://us-central1-jobtracker-4f14f.cloudfunctions.net/api`
+// axios.defaults.baseURL = `https://us-central1-jobtracker-4f14f.cloudfunctions.net/api`
+
+const fetchProfile = token => {
+  return axios.get(`/user`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  })
+}
 
 const App = () => {
   const initialState = useContext(UserContext)
   const [user, setUser] = useContext(ProfileContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const fetchProfile = async token => {
-    await axios
-      .get(`/user`, {
-        headers: {
-          Authorization: `${token}`
-        }
-      })
-      .then(res => {
-        setUser(res.data)
-      })
-      .catch(err => console.log({ err }))
-  }
   // keeps userContext authorized if signed in
   useEffect(
     _ => {
@@ -59,14 +60,18 @@ const App = () => {
           dispatch({ type: 'LOGOUT' })
         } else {
           dispatch({ type: 'LOGIN' })
-          state.isAuth && fetchProfile(token)
+          if (state.isAuth) {
+            fetchProfile(token)
+              .then(res => setUser(res.data))
+              .catch(error => console.error(error))
+          }
         }
       } else {
         dispatch({ type: 'LOGOUT' })
         localStorage.removeItem('FBIdToken')
       }
     },
-    [state.isAuth]
+    [state.isAuth, setUser]
   )
 
   return (
@@ -98,7 +103,16 @@ const App = () => {
                   component={Dashboard}
                   isAuth={state.isAuth}
                 />
-                <Route path="/admin" component={Admin} isAuth={state.isAuth} />
+                <AuthRoute
+                  path="/admin"
+                  render={() => {
+                    return !user.user.admin ? (
+                      <Redirect to="/" />
+                    ) : (
+                      <Admin isAuth={state.isAuth} />
+                    )
+                  }}
+                />
                 <AuthRoute
                   path="/users/:id"
                   component={Alumni}

@@ -1,15 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 
-const Rajdhani = { fontFamily: 'Rajdhani, sans-serif', fontWeight: 400 }
-const OpenSans = {
-  fontFamily: 'Open Sans, sans-serif',
-  fontWeight: 400
-}
-
-const DolceVita = {
-  fontFamily: 'Dolce Vita Light, sans-serif'
-}
-
 const Raleway = {
   fontFamily: 'Raleway, sans-serif'
 }

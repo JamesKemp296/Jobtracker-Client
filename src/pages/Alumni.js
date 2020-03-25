@@ -19,15 +19,18 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 
+const fetchUser = id => {
+  return axios.get(`/user/${id}`)
+}
+
 const Alumni = ({ location }) => {
   const classes = useJobCardStyles()
   const [user, setUser] = useState(null)
   const [job, setJob] = useState([])
 
-  const fetchUser = () => {
+  useEffect(() => {
     const id = location.state.id
-    axios
-      .get(`/user/${id}`)
+    fetchUser(id)
       .then(res => {
         setUser(res.data)
         const Jobs = res.data.jobs.map(
@@ -43,11 +46,7 @@ const Alumni = ({ location }) => {
         setJob(Jobs)
       })
       .catch(err => console.log(err))
-  }
-
-  useEffect(() => {
-    fetchUser()
-  }, [])
+  }, [location.state.id])
 
   return (
     <div style={{ marginTop: 70 }}>
